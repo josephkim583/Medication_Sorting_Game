@@ -33,62 +33,41 @@ function calender_click(clicked_id)
         }
     }
 
-function red_medicine_click(){
-    var hand_val = my_hand["count"];
-    var hand_type = my_hand["type"];
-    var red_val = Number(document.getElementById("red_bottle").innerHTML);
-
-    console.log("hand_val");
-
-    if (hand_val == 1 && hand_type == "b"){
-        alert("You can't put a blue pill inside a red bottle!");
-    }
-    else if (hand_val == 1 && hand_type == "r"){
-        document.getElementById("red_bottle").innerHTML = red_val + 1;
-        document.getElementById("hand").innerHTML = Number(0);
-        my_hand["count"] = 0;
-        my_hand["type"] = "none"
-    }
-    else if(hand_val == 0 && red_val > 0){
-        document.getElementById("red_bottle").innerHTML = red_val - 1;
-        document.getElementById("hand").innerHTML = hand_val + 1;
-        my_hand["count"] = 1
-        my_hand["type"] = "r"
-    }
-    else{
-        alert("The hand is empty!");
-    }
-}
-
-
 function blue_medicine_click(){
     var hand_val = my_hand["count"];
     var hand_type = my_hand["type"];
-    var blue_val = Number(document.getElementById("blue_bottle").innerHTML);
 
-    console.log("hand_val");
 
     if (hand_val == 1 && hand_type == "r"){
         alert("You can't put a red pill inside a blue bottle!");
     }
     else if (hand_val == 1 && hand_type == "b"){
-        document.getElementById("blue_bottle").innerHTML = blue_val + 1;
-        document.getElementById("hand").innerHTML = Number(0);
+        medicine_count["blue"] += 1;
+        var id = "blue" + String(medicine_count["blue"])
+        document.getElementById(id).style.backgroundColor = "blue";
+        document.getElementById("hand").innerHTML = hand_val - 1;
         my_hand["count"] = 0;
         my_hand["type"] = "none"
     }
-    else if(hand_val == 0 && blue_val > 0){
-        document.getElementById("blue_bottle").innerHTML = blue_val - 1;
-        document.getElementById("hand").innerHTML = hand_val + 1;
-        my_hand["count"] = 1
-        my_hand["type"] = "b"
+    else if (hand_val == 0){
+        if (medicine_count["blue"] > 0) {
+            var id = "blue" + String(medicine_count["blue"])
+            document.getElementById(id).style.backgroundColor = "white";
+            document.getElementById("hand").innerHTML = hand_val + 1;
+            medicine_count["blue"] -= 1;
+            my_hand["count"] = 1
+            my_hand["type"] = "b"
+        }
+        else{
+            alert("Red medicine bottle is empty");
+        } 
     }
     else{
-        alert("The hand is empty!");
+        alert("Wrong operation!");
     }
 }
 
-function red_medicine(){
+function red_medicine_click(){
     var hand_val = my_hand["count"];
     var hand_type = my_hand["type"];
     

@@ -68,12 +68,20 @@
     height: 30px;
 }
 
+.red_medicine > #cap {
+    background-color: white;
+    height: 50px;
+    color: black;
+    font-size: 30px;
+}
+
 .blue_medicine{
     float: right;
     display: grid;
     width: 30%;
     text-align: center;
     color: blue;
+
 }
 
 .blue_medicine > div{
@@ -82,6 +90,13 @@
     text-align: center;
     font-size: 15px;
     height: 30px;
+}
+
+.blue_medicine > #cap {
+    background-color: white;
+    height: 50px;
+    color: black;
+    font-size: 30px;
 }
 
 #hand {
