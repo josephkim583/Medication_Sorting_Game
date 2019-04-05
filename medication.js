@@ -1,4 +1,7 @@
 var my_hand = {"count": 0, "type": "none"};
+var medicine_count = {"red": 10, "blue": 10};
+
+
 function calender_click(clicked_id)
     {
         var calendar_val = Number(document.getElementById(clicked_id).innerHTML);
@@ -85,6 +88,40 @@ function blue_medicine_click(){
     }
 }
 
+function red_medicine(){
+    var hand_val = my_hand["count"];
+    var hand_type = my_hand["type"];
+    
+    
+    if (hand_val == 1 && hand_type == "b"){
+        alert("You can't put a blue pill inside a red bottle!");
+    }
+    else if (hand_val == 1 && hand_type == "r"){
+        medicine_count["red"] += 1;
+        var id = "red" + String(medicine_count["red"])
+        document.getElementById(id).style.backgroundColor = "red";
+        document.getElementById("hand").innerHTML = hand_val - 1;
+        my_hand["count"] = 0;
+        my_hand["type"] = "none"
+    }
+    else if (hand_val == 0){
+        if (medicine_count["red"] > 0) {
+            var id = "red" + String(medicine_count["red"])
+            document.getElementById(id).style.backgroundColor = "white";
+            document.getElementById("hand").innerHTML = hand_val + 1;
+            medicine_count["red"] -= 1;
+            my_hand["count"] = 1
+            my_hand["type"] = "r"
+        }
+        else{
+            alert("Red medicine bottle is empty");
+        } 
+    }
+    else{
+        alert("Wrong operation!");
+    }
+    
+}
 
 var json = {"day" : { "Sun": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Mon": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Tues": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Wed": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Thurs": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Fri": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Sat": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } } }
 // console.log(json["day"]["Sun"]["1"]["red"]);

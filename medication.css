@@ -52,9 +52,40 @@
     color: blue;
 }
 
+.red_medicine{
+    display: grid;
+    float: left;
+    width: 30%;
+    text-align: center;
+    color: red;
+}
+
+.red_medicine > div{
+    background-color: red;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 15px;
+    height: 30px;
+}
+
+.blue_medicine{
+    float: right;
+    display: grid;
+    width: 30%;
+    text-align: center;
+    color: blue;
+}
+
+.blue_medicine > div{
+    background-color: blue;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 15px;
+    height: 30px;
+}
+
 #hand {
     margin-top: 100px;
     margin-left: 50%;
     font-size: 30px;
-    /* width and height can be anything, as long as they're equal */
   }
