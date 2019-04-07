@@ -55,9 +55,10 @@
 .red_medicine{
     display: grid;
     float: left;
-    width: 30%;
+    width: 10%;
     text-align: center;
     color: red;
+    margin-left: 20%;
 }
 
 .red_medicine > div{
@@ -78,10 +79,10 @@
 .blue_medicine{
     float: right;
     display: grid;
-    width: 30%;
+    width: 10%;
     text-align: center;
     color: blue;
-
+    margin-right: 20%;
 }
 
 .blue_medicine > div{
