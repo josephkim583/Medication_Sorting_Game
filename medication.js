@@ -44,7 +44,14 @@ function blue_medicine_click(){
     else if (hand_val == 1 && hand_type == "b"){
         medicine_count["blue"] += 1;
         var id = "blue" + String(medicine_count["blue"])
-        document.getElementById(id).style.backgroundColor = "blue";
+        var img = document.createElement("img");
+        img.src = "bluepill.jpg";
+        img.id = id;
+        img.setAttribute("height", "42");
+        // img.setAttribute("width", "42");
+
+        document.getElementById("blue_bottle").appendChild(img);
+        // document.getElementById(id).style.backgroundColor = "blue";
         document.getElementById("hand").innerHTML = hand_val - 1;
         my_hand["count"] = 0;
         my_hand["type"] = "none"
@@ -52,7 +59,7 @@ function blue_medicine_click(){
     else if (hand_val == 0){
         if (medicine_count["blue"] > 0) {
             var id = "blue" + String(medicine_count["blue"])
-            document.getElementById(id).style.backgroundColor = "white";
+            document.getElementById(id).remove();
             document.getElementById("hand").innerHTML = hand_val + 1;
             medicine_count["blue"] -= 1;
             my_hand["count"] = 1
