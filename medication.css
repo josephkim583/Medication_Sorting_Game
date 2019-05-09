@@ -75,7 +75,7 @@
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto auto auto; 
-    /* background-image: url("/bottle.jpg"); */
+    /* background-image: url("bottle.jpg"); */
     grid-gap: 15px;
     float: left;
     width: 10%;
@@ -131,3 +131,9 @@
     margin-left: 50%;
     font-size: 30px;
   }
+
+.bottle{
+    width: 500px;
+    height: 500px;
+    background-image: url("bottle.jpg");
+}
