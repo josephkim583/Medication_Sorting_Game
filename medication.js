@@ -1,19 +1,19 @@
 var my_hand = {"count": 0, "type": "none"};
 var medicine_count = {"red": 10, "blue": 10};
-var calendar_count = {};
+var calendar_count = {"Mon1r": 0, "Mon2r": 0, "Mon3r": 0, "Mon4r": 0, "Mon1b": 0, "Mon2b": 0, "Mon3b": 0, "Mon4b": 0, "Tues1r": 0, "Tues2r": 0, "Tues3r": 0, "Tues4r": 0, "Tues1b": 0, "Tues2b": 0, "Tues3b": 0, "Tues4b": 0, "Wed1r": 0, "Wed2r": 0, "Wed3r": 0, "Wed4r": 0, "Wed1b": 0, "Wed2b": 0, "Wed3b": 0, "Wed4b": 0, "Thurs1r": 0, "Thurs2r": 0, "Thurs3r": 0, "Thurs4r": 0, "Thurs1b": 0, "Thurs2b": 0, "Thurs3b": 0, "Thurs4b": 0, "Fri1r": 0, "Fri2r": 0, "Fri3r": 0, "Fri4r": 0, "Fri1b": 0, "Fri2b": 0, "Fri3b": 0, "Fri4b": 0, "Sat1r": 0, "Sat2r": 0, "Sat3r": 0, "Sat4r": 0, "Sat1b": 0, "Sat2b": 0, "Sat3b": 0, "Sat4b": 0, "Sun1r": 0, "Sun2r": 0, "Sun3r": 0, "Sun4r": 0, "Sun1b": 0, "Sun2b": 0, "Sun3b": 0, "Sun4b": 0}
 
 
 function calender_click(clicked_id)
     {
         var calendar_val = Number(document.getElementById(clicked_id).innerHTML);
         var calendar_type = clicked_id.substr(-1);
-        console.log(calendar_type);
         var hand_val = my_hand["count"];
         var hand_type = my_hand["type"];
 
         if (hand_val == 1){
-            if (hand_type == 'r'){
-                var id = clicked_id + 'r'
+            if (hand_type == calendar_type && calendar_type == 'r'){
+                var id = clicked_id + calendar_count[clicked_id ]
+                calendar_count[clicked_id ] += 1
                 var img = document.createElement("img");
                 img.src = "redpill.jpg";
                 img.id = id;
@@ -24,8 +24,9 @@ function calender_click(clicked_id)
                 my_hand["count"] = 0;
                 my_hand["type"] = "none"
             }
-            else if (hand_type == "b"){
-                var id = clicked_id + 'b'
+            else if (hand_type == "b" && hand_type == calendar_type){
+                var id = clicked_id + calendar_count[clicked_id ] 
+                calendar_count[clicked_id ] += 1
                 var img = document.createElement("img");
                 img.src = "bluepill.jpg";
                 img.id = id;
@@ -41,15 +42,20 @@ function calender_click(clicked_id)
             }
             
         }
-        else if(hand_val == 0 && calendar_val > 0){
-            document.getElementById(clicked_id).innerHTML = calendar_val - 1;
-            document.getElementById("hand").innerHTML = hand_val + 1;
-            my_hand["count"] = 1;
-            my_hand["type"] = calendar_type;
+        else if(hand_val == 0){
+            if (calendar_count[clicked_id] > 0){
+                var id = clicked_id + String(calendar_count[clicked_id] - 1);
+                document.getElementById(id).remove();
+                calendar_count[clicked_id] -= 1;
+                document.getElementById("hand").innerHTML = hand_val + 1;
+                my_hand["count"] = 1;
+                my_hand["type"] = calendar_type;
+            }
+            else{
+                alert("The hand is empty!");
+            }           
         }
-        else{
-            alert("The hand is empty!");
-        }
+        
     }
 
 function red_instruction(){
