@@ -33,10 +33,17 @@ function calender_click(clicked_id)
         }
     }
 
+function red_instruction(){
+    alert("Red pill instructions!");
+}
+
+function blue_instruction(){
+    alert("Blue pill instructions!");
+}
+
 function blue_medicine_click(){
     var hand_val = my_hand["count"];
     var hand_type = my_hand["type"];
-
 
     if (hand_val == 1 && hand_type == "r"){
         alert("You can't put a red pill inside a blue bottle!");
@@ -85,7 +92,12 @@ function red_medicine_click(){
     else if (hand_val == 1 && hand_type == "r"){
         medicine_count["red"] += 1;
         var id = "red" + String(medicine_count["red"])
-        document.getElementById(id).style.backgroundColor = "red";
+        var img = document.createElement("img");
+        img.src = "redpill.jpg";
+        img.id = id;
+        img.setAttribute("height" , 42);
+
+        document.getElementById("red_bottle").appendChild(img);
         document.getElementById("hand").innerHTML = hand_val - 1;
         my_hand["count"] = 0;
         my_hand["type"] = "none"
@@ -93,7 +105,7 @@ function red_medicine_click(){
     else if (hand_val == 0){
         if (medicine_count["red"] > 0) {
             var id = "red" + String(medicine_count["red"])
-            document.getElementById(id).style.backgroundColor = "white";
+            document.getElementById(id).remove();
             document.getElementById("hand").innerHTML = hand_val + 1;
             medicine_count["red"] -= 1;
             my_hand["count"] = 1
