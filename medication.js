@@ -1,5 +1,6 @@
 var my_hand = {"count": 0, "type": "none"};
 var medicine_count = {"red": 10, "blue": 10};
+var calendar_count = {};
 
 
 function calender_click(clicked_id)
@@ -11,8 +12,26 @@ function calender_click(clicked_id)
         var hand_type = my_hand["type"];
 
         if (hand_val == 1){
-            if (hand_type == calendar_type){
-                document.getElementById(clicked_id).innerHTML = calendar_val + 1;
+            if (hand_type == 'r'){
+                var id = clicked_id + 'r'
+                var img = document.createElement("img");
+                img.src = "redpill.jpg";
+                img.id = id;
+                img.setAttribute("height" , 30);
+                document.getElementById(clicked_id).appendChild(img);
+                document.getElementById("hand").innerHTML = Number(0);
+
+                my_hand["count"] = 0;
+                my_hand["type"] = "none"
+            }
+            else if (hand_type == "b"){
+                var id = clicked_id + 'b'
+                var img = document.createElement("img");
+                img.src = "bluepill.jpg";
+                img.id = id;
+                img.setAttribute("height" , 30);
+                document.getElementById(clicked_id).appendChild(img);
+
                 document.getElementById("hand").innerHTML = Number(0);
                 my_hand["count"] = 0;
                 my_hand["type"] = "none"
