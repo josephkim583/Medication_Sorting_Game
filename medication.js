@@ -109,7 +109,8 @@ function blue_medicine_click(){
 function red_medicine_click(){
     var hand_val = my_hand["count"];
     var hand_type = my_hand["type"];
-    
+    document.body.style.cursor = "url('redpill.jpg')";
+
     
     if (hand_val == 1 && hand_type == "b"){
         alert("You can't put a blue pill inside a red bottle!");
