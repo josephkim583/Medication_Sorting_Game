@@ -27,13 +27,12 @@
                 <p> 10AM-12PM </p>
             </div>
             <div id = "Sun1" >
-                Morning Therapy
-                <!-- <div class = "left" id = "Sun1r"   >
+                <!-- Morning Therapy -->
+                <div class = "left" id = "Sun1r"   onClick="calender_click(this.id)">
                     
                 </div>
-                <div class = "right" id = "Sun1b"   >
-                    
-                </div> -->
+                <div class = "right" id = "Sun1b"  onClick="calender_click(this.id)" >
+                </div>
             </div>
             <div id = "Mon1" >
                 <div class = "left" id = "Mon1r"   onClick="calender_click(this.id)">
@@ -235,13 +234,13 @@
                         </div>
             </div>
             <div id = "Wed4" >
-                    <!-- <div class = "left" id="Wed4r"   onClick="calender_click(this.id)">
+                    <div class = "left" id="Wed4r"   onClick="calender_click(this.id)">
                             
-                        </div>
-                        <div class = "right" id ="Wed4b"   onClick="calender_click(this.id)">
+                    </div>
+                    <div class = "right" id ="Wed4b"   onClick="calender_click(this.id)">
                             
-                        </div> -->
-                        Exercise
+                    </div>
+                        <!-- Exercise -->
             </div>
             <div id = "Thurs4" >
                     <div class = "left" id ="Thurs4r"   onClick="calender_click(this.id)">
@@ -297,41 +296,43 @@
         </div>
         <br>
 
-
-        <div  class="red_medicine" id = "red_bottle" onClick= "red_medicine_click()">
-            <!-- <img src = "bottle.jpg"> -->
-            <i class="fa fa-info-circle" onClick = "red_instruction()"></i>
-            <img id = "red1" src = "redpill.jpg" height = "42">
-            <img id = "red2" src = "redpill.jpg" height = "42">
-            <img id = "red3" src = "redpill.jpg" height = "42">
-            <img id = "red4" src = "redpill.jpg" height = "42">
-            <img id = "red5" src = "redpill.jpg" height = "42">
-            <img id = "red6" src = "redpill.jpg" height = "42">
-            <img id = "red7" src = "redpill.jpg" height = "42">
-            <img id = "red8" src = "redpill.jpg" height = "42">
-            <img id = "red9" src = "redpill.jpg" height = "42">
-            <img id = "red10" src = "redpill.jpg" height = "42">
-            <img id = "red11" src = "redpill.jpg" height = "42">
-            
-        </div>
-        <div class="blue_medicine" id = "blue_bottle" onClick="blue_medicine_click()">
-            <i class="fa fa-info-circle" onClick = "blue_instruction()"></i>
-            <img id = "blue1"src = "bluepill.jpg" height = "42">
-            <img id = "blue2" src = "bluepill.jpg" height = "42">
-            <img id = "blue3" src = "bluepill.jpg" height = "42">
-            <img id = "blue4" src = "bluepill.jpg" height = "42">
-            <img id = "blue5" src = "bluepill.jpg" height = "42">
-            <img id = "blue6" src = "bluepill.jpg" height = "42">
-            <img id = "blue7" src = "bluepill.jpg" height = "42">
-            <img id = "blue8" src = "bluepill.jpg" height = "42">
-            <img id = "blue9" src = "bluepill.jpg" height = "42">
-            <img id = "blue10" src = "bluepill.jpg" height = "42">
-            <img id = "blue11" src = "bluepill.jpg" height = "42">
-        </div>
-              
-        <div id = "hand">
-            0 
-        </div>
+        <div id="pill-area">
+            <div  class="red_medicine" id = "red_bottle" onClick= "red_medicine_click()">
+                <!-- <img src = "bottle.jpg"> -->
+                <i class="fa fa-info-circle" onClick = "red_instruction()"></i>
+                <img id = "red1" src = "redpill.jpg" height = "42" draggable="true">
+                <img id = "red2" src = "redpill.jpg" height = "42">
+                <img id = "red3" src = "redpill.jpg" height = "42">
+                <img id = "red4" src = "redpill.jpg" height = "42">
+                <img id = "red5" src = "redpill.jpg" height = "42">
+                <img id = "red6" src = "redpill.jpg" height = "42">
+                <img id = "red7" src = "redpill.jpg" height = "42">
+                <img id = "red8" src = "redpill.jpg" height = "42">
+                <img id = "red9" src = "redpill.jpg" height = "42">
+                <img id = "red10" src = "redpill.jpg" height = "42">
+                <img id = "red11" src = "redpill.jpg" height = "42">
+                
+            </div>
+            <div id = "info">
+                <p>Hand:</p>
+                <!-- <p id="hand">none</p> -->
+                <p id="pill"></p>
+            </div>
+            <div class="blue_medicine" id = "blue_bottle" onClick="blue_medicine_click()">
+                <i class="fa fa-info-circle" onClick = "blue_instruction()"></i>
+                <img id = "blue1"src = "bluepill.jpg" height = "42">
+                <img id = "blue2" src = "bluepill.jpg" height = "42">
+                <img id = "blue3" src = "bluepill.jpg" height = "42">
+                <img id = "blue4" src = "bluepill.jpg" height = "42">
+                <img id = "blue5" src = "bluepill.jpg" height = "42">
+                <img id = "blue6" src = "bluepill.jpg" height = "42">
+                <img id = "blue7" src = "bluepill.jpg" height = "42">
+                <img id = "blue8" src = "bluepill.jpg" height = "42">
+                <img id = "blue9" src = "bluepill.jpg" height = "42">
+                <img id = "blue10" src = "bluepill.jpg" height = "42">
+                <img id = "blue11" src = "bluepill.jpg" height = "42">
+            </div>
+        </div>        
 
         
        
