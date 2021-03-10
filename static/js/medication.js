@@ -14,12 +14,14 @@ function populate_activity(activity) {
 activities.forEach(populate_activity);
 
 function create_pill(color) {
+    console.log("start");
     var img = document.createElement("img");
     if (color == "r") {
-        img.src = "redpill.jpg";
+        img.src = "/static/img/redpill.jpg";
     } else {
-        img.src = "bluepill.jpg";
+        img.src = "/static/img/bluepill.jpg";
     }
+    console.log(img.src);
     return img;
 }
 
