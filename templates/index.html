@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/static/css/medication.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="static/js/jquery-3.6.0.js"></script>
     </head>
 
     <body>
@@ -11,326 +12,155 @@
 <!-- 
         <p>A Grid Container that consists of your medicine schedule</p>
          -->
-        <div class="grid-container">
+        <div id="grid-container">
             <!-- Days -->
             <div class = "time"></div>
             <div>Sun</div>
             <div>Mon</div>
-            <div>Tues</div>
+            <div>Tue</div>
             <div>Wed</div>  
-            <div>Thurs</div>
+            <div>Thu</div>
             <div>Fri</div>
             <div>Sat</div>
 
-            <!-- Time 1 -->
+            <!-- Morning -->
             <div class = "time">
-                <p> 10AM-12PM </p>
+                <p> Morning </p>
             </div>
-            <div id = "Sun1" >
-                <!-- Morning Therapy -->
-                <div class = "left" id = "Sun1r"   onClick="calender_click(this.id)">
-                    
-                </div>
-                <div class = "right" id = "Sun1b"  onClick="calender_click(this.id)" >
-                </div>
+            <div id = "Sun-M" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Mon1" >
-                <div class = "left" id = "Mon1r"   onClick="calender_click(this.id)">
-                    
-                </div>
-                <div class = "right" id = "Mon1b"  onClick="calender_click(this.id)" >
-                    
-                </div>
+            <div id = "Mon-M" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Tues1" >
-                <div class = "left" id = "Tues1r"   onClick="calender_click(this.id)">
-                    
-                </div>
-                <div class = "right" id = "Tues1b"  onClick="calender_click(this.id)" >
-                    
-                </div>
+            <div id = "Tue-M" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Wed1" >
-                <div class = "left" id = "Wed1r"  onClick="calender_click(this.id)" >
-                        
-                    </div>
-                    <div class = "right" id = "Wed1b"   onClick="calender_click(this.id)">
-                        
-                    </div>
+            <div id = "Wed-M" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Thurs1" >
-                    <div class = "left" id = "Thurs1r"   onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class =  "right" id = "Thurs1b"   onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Thu-M" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Fri1" >
-                    <div class =  "left" id = "Fri1r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class =  "right" id = "Fri1b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Fri-M" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Sat1" >
-                    <div class = "left" id ="Sat1r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id = "Sat1b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Sat-M" onClick="calendar_click(this.id)">
+                
             </div>
 
-            <!-- Time 2 -->
+            <!-- Noon -->
             <div class = "time">
-                <p> 12PM-2PM </p>
+                <p> Noon </p>
             </div>
-            <div id = "Sun2" >
-                    <div class = "left" id=  "Sun2r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id = "Sun2b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Sun-N" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Mon2" >
-                    <div class = "left" id= "Mon2r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class =  "right" id = "Mon2b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Mon-N" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Tues2" >
-                    <div class = "left" id="Tues2r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id = "Tues2b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Tue-N" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Wed2" >
-                    <div class = "left" id = "Wed2r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id= "Wed2b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Wed-N" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Thurs2" >
-                    <div class = "left" id ="Thurs2r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class =  "right" id = "Thurs2b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Thu-N" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Fri2">
-                    <div class = "left" id = "Fri2r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id= "Fri2b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Fri-N" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Sat2" >
-                    <div class =  "left" id = "Sat2r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id ="Sat2b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Sat-N" onClick="calendar_click(this.id)">
+                
             </div>
           
-            <!-- Time 3 -->
+            <!-- Afternoon -->
             <div class = "time">
-                <p> 2PM - 4PM </p>
+                <p> Afternoon </p>
             </div>
-            <div id = "Sun3" >
-                    <div class = "left" id="Sun3r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id="Sun3b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Sun-A" onClick="calendar_click(this.id)">
+                
             </div>  
-            <div id = "Mon3" >
-                    <div class = "left" id ="Mon3r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id= "Mon3b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Mon-A" onClick="calendar_click(this.id)">
+                
             </div>  
-            <div id = "Tues3" >
-                    <div class = "left" id ="Tues3r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id ="Tues3b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Tue-A" onClick="calendar_click(this.id)">
+                
             </div> 
-            <div id = "Wed3" >
-                    <div class = "left" id ="Wed3r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id= "Wed3b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Wed-A" onClick="calendar_click(this.id)">
+                
             </div>  
-            <div id = "Thurs3" >
-                    <div class = "left" id ="Thurs3r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class =  "right" id ="Thurs3b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Thu-A" onClick="calendar_click(this.id)">
+                
             </div>  
-            <div id = "Fri3" >
-                    <div class = "left" id = "Fri3r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id= "Fri3b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Fri-A" onClick="calendar_click(this.id)">
+                
             </div>  
-            <div id = "Sat3" >
-                    <div class = "left" id ="Sat3r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id = "Sat3b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Sat-A" onClick="calendar_click(this.id)">
+                
             </div>  
             
-            <!-- Time 4 -->
+            <!-- Evening -->
             <div class = "time">
-                <p>4PM - 6PM</p>
+                <p>Evening</p>
             </div>
-            <div id = "Sun4" >
-                    <div class = "left" id= "Sun4r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id ="Sun4b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Sun-E" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Mon4" >
-                    <div class = "left" id = "Mon4r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id ="Mon4b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Mon-E" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Tues4" >
-                    <div class = "left" id = "Tues4r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id ="Tues4b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Tue-E" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Wed4" >
-                    <div class = "left" id="Wed4r"   onClick="calender_click(this.id)">
-                            
-                    </div>
-                    <div class = "right" id ="Wed4b"   onClick="calender_click(this.id)">
-                            
-                    </div>
-                        <!-- Exercise -->
+            <div id = "Wed-E" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Thurs4" >
-                    <div class = "left" id ="Thurs4r"   onClick="calender_click(this.id)">
-                            
-                        </div>
-                        <div class = "right" id ="Thurs4b"  onClick="calender_click(this.id)" >
-                            
-                        </div>
+            <div id = "Thu-E" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Fri4" >
-                    <div class = "left" id ="Fri4r"  onClick="calender_click(this.id)" >
-                            
-                        </div>
-                        <div class = "right" id ="Fri4b"   onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Fri-E" onClick="calendar_click(this.id)">
+                
             </div>
-            <div id = "Sat4" >
-                    <div class = "left" id ="Sat4r" onClick="calender_click(this.id)"  >
-                            
-                        </div>
-                        <div class = "right" id ="Sat4b" onClick="calender_click(this.id)">
-                            
-                        </div>
+            <div id = "Sat-E" onClick="calendar_click(this.id)">
+                
             </div>
-
-            <!-- Time 5 -->
-            <!-- <div id = "Sun5"   >0</div>
-            <div id = "Mon5"   >0</div>
-            <div id = "Tues5"   >0</div>
-            <div id = "Wed5"   >0</div>
-            <div id = "Thurs5"   >0</div>
-            <div id = "Fri5"   >0</div>
-            <div id = "Sat5"   >0</div> -->
-
-            <!-- Time 6 -->
-            <!-- <div id = "Sun6"   >0</div>
-            <div id = "Mon6"   >0</div>
-            <div id = "Tues6"   >0</div>
-            <div id = "Wed6"   >0</div>
-            <div id = "Thurs6"   >0</div>
-            <div id = "Fri6"   >0</div>
-            <div id = "Sat6"   >0</div> -->
-
-            <!-- Time 7 -->
-            <!-- <div id = "Sun7"   >0</div>
-            <div id = "Mon7"   >0</div>
-            <div id = "Tues7"   >0</div>
-            <div id = "Wed7"   >0</div>
-            <div id = "Thurs7"   >0</div>
-            <div id = "Fri7"   >0</div>
-            <div id = "Sat7"   >0</div> -->
         </div>
         <br>
 
         <div id="pill-area">
             <div  class="red_medicine" id = "red_bottle" onClick= "red_medicine_click()">
-                <!-- <img src = "bottle.jpg"> -->
                 <i class="fa fa-info-circle" onClick = "red_instruction()"></i>
-                <img id = "red1" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red2" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red3" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red4" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red5" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red6" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red7" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red8" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red9" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red10" src = "/static/img/redpill.jpg" height = "42">
-                <img id = "red11" src = "/static/img/redpill.jpg" height = "42">
-                
+                <div class="red_pill" id="red1" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red2" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red3" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red4" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red5" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red6" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red7" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red8" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red9" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red10" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="red_pill" id="red11" onclick="pill_click(this.id); event.stopPropagation();"></div>
             </div>
             <div id = "info">
                 <p>Hand:</p>
-                <!-- <p id="hand">none</p> -->
-                <p id="pill"></p>
+                <div id="pill"></div>
             </div>
             <div class="blue_medicine" id = "blue_bottle" onClick="blue_medicine_click()">
                 <i class="fa fa-info-circle" onClick = "blue_instruction()"></i>
-                <img id = "blue1"src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue2" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue3" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue4" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue5" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue6" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue7" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue8" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue9" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue10" src = "/static/img/bluepill.jpg" height = "42">
-                <img id = "blue11" src = "/static/img/bluepill.jpg" height = "42">
+                <div class="blue_pill" id="blue1" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue2" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue3" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue4" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue5" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue6" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue7" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue8" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue9" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue10" onclick="pill_click(this.id); event.stopPropagation();"></div>
+                <div class="blue_pill" id="blue11" onclick="pill_click(this.id); event.stopPropagation();"></div>
             </div>
         </div>        
 
@@ -342,6 +172,10 @@
             <div class = "right"> Value</div>        
         </div> -->
 
-        <script src="/static/js/medication.js" ></script>
+        <script type="text/javascript" src="/static/js/medication.js" ></script>
+        <script type="text/javascript"> 
+            var events = JSON.parse('{{ events | tojson | safe }}');
+            events.forEach(populate_events); 
+        </script>
     </body>
 </html>
