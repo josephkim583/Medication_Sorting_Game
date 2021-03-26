@@ -72,48 +72,34 @@
     font-size: 50px;
     text-align: center;
 }
-/* .left {
-    width: 50%;
-    height: 20%;
-    float: left;
-    text-align: center;
-    color: red;
-}
-.right {
-    margin-left: 50%;
-    height: 20%;
-    text-align: center;
-    color: blue;
-} */
 
-.red_medicine{
-    flex: 1;
+.red_container{
+    float: left;
     display: grid;
     grid-template-columns: auto auto auto ;
     grid-template-rows: auto auto auto auto; 
     grid-gap: 15px;
-    float: left;
     width: 200px;
     height: 250px;
     text-align: center;
     color: red;
-    margin-left: 16%;
+    margin-right: 5%;
     padding: 10px;
     padding-top: 20px;
     border-radius: 25px;
     border: 2px solid red;
 }
 
-.red_pill {
+.red_med {
     background-color: red;
     height: 20px;
     width: 50px;
     border-radius: 25%/50%;
 }
 
-.blue_medicine{
-    flex: 1;
-    float: right;
+.blue_container{
+    float: left;
+    /* float: right; */
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto auto auto; 
@@ -128,7 +114,7 @@
     border: 2px solid blue;
 }
 
-.blue_pill {
+.blue_med {
     background-color: blue;
     height: 20px;
     width: 50px;
@@ -136,19 +122,20 @@
 }
 
 #info {
-    flex: 1;
+    float: left;
+    /* background-color: black; */
     margin-top: 10px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
     font-size: 30px;
     /* background-color: orange; */
     text-align: center;
   }
 
-#pill-area {
+/* #med-area {
     display: flex;
-}
+} */
 
-#pill {
+#med {
     display: inline-block;
 }
