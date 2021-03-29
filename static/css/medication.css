@@ -1,8 +1,3 @@
-.everything{
-    display: grid;
-    grid-template-columns: 2fr 2fr;
-    grid-template-areas: "red blue";
-}
 #grid-container {
     display: grid;
     grid-template-columns: 0.5fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
@@ -41,10 +36,18 @@
 }
 
 .container {
-    width: 100%;
-    height: 50px;
-    margin: auto;
+    float: left;
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    grid-template-rows: auto auto auto auto; 
+    width: 200px;
+    height: 250px;
+    text-align: center;
+    /* color: red; */
+    margin-right: 5%;
     padding: 10px;
+    padding-top: 10px;
+    border-radius: 25px;
 }
 
 .time{
@@ -53,69 +56,8 @@
     font-size: 10px;
 }
 
-.red {
-    width: 30%;
-    height: 100px;
-    float: left;
-    background: red;
-    margin-left: 20%;
-    font-size: 50px;
-    text-align: center;
-
-}
-.blue {
-    width: 30%;
-    height: 100px;
-    float: left;
-    background: blue;
-    margin-right: 20%;
-    font-size: 50px;
-    text-align: center;
-}
-
-.red_container{
-    float: left;
-    display: grid;
-    grid-template-columns: auto auto auto ;
-    grid-template-rows: auto auto auto auto; 
-    grid-gap: 15px;
-    width: 200px;
-    height: 250px;
-    text-align: center;
-    color: red;
-    margin-right: 5%;
-    padding: 10px;
-    padding-top: 20px;
-    border-radius: 25px;
-    border: 2px solid red;
-}
-
-.red_med {
-    background-color: red;
-    height: 20px;
-    width: 50px;
-    border-radius: 25%/50%;
-}
-
-.blue_container{
-    float: left;
-    /* float: right; */
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: auto auto auto auto; 
-    width: 200px;
-    height: 250px;
-    text-align: center;
-    color: blue;
-    margin-right: 20%;
-    padding: 10px;
-    padding-top: 20px;
-    border-radius: 25px;
-    border: 2px solid blue;
-}
-
-.blue_med {
-    background-color: blue;
+.med {
+    /* float: left; */
     height: 20px;
     width: 50px;
     border-radius: 25%/50%;
@@ -131,10 +73,6 @@
     /* background-color: orange; */
     text-align: center;
   }
-
-/* #med-area {
-    display: flex;
-} */
 
 #med {
     display: inline-block;

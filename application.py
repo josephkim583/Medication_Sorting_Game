@@ -22,11 +22,18 @@ def message():
         print(request.get_json()["message"])
         return "OK", 200
 
+@app.route("/action")
+def action():
+    action = [{"name":"sayText", "args":["hello", "world"]}, {"name":"pointAt", "args":["wednesday morning", "red medicine"]}]
+    return jsonify(action)
+
 @app.route("/")
 def index():
-    events = [{"name": "exercise", "day": "Mon", "time":"M"}, {"name":"appointment", "day":"Thu", "time":"N"},
-                {"name":"work", "day":"Sat","time":"A"}]
-    return render_template("index.html", events=events)
+    events = [{"name": "exercise", "day": "mon", "time":"1"}, {"name":"appointment", "day":"thu", "time":"2"},
+                {"name":"work", "day":"sat","time":"3"}]
+    medications = [{"name":"ibuprofen", "color":"red", "number":"11"}, {"name":"aspirin", "color":"blue", "number":"15"},
+    {"name":"albuterol", "color":"green", "number":"7"}]
+    return render_template("index.html", events=events, medications=medications)
 
 if __name__ == "__main__":
     app.run(debug=True)
