@@ -1,10 +1,11 @@
 var my_hand = {"count": 0, "color": "none", "name":"none"};
 var color_mapping = {};
+var medication_mapping = {};
 var calendar_count = {"mon1": 0, "mon2": 0, "mon3": 0, "mon4": 0, "tue1": 0, "tue2": 0, "tue3": 0, "tue4": 0,
 "wed1": 0, "wed2": 0, "wed3": 0, "wed4": 0, "thu1": 0, "thu2": 0, "thu3": 0, "thu4": 0, 
 "fri1": 0, "fri2": 0, "fri3": 0, "fri4": 0, "sat1": 0, "sat2": 0, "sat3": 0, "sat4": 0, 
 "sun1": 0, "sun2": 0, "sun3": 0, "sun4": 0};
-const time_mapping = {"1":"morning", "2":"noon", "3":"afternoon", "4":"evening"};
+const time_mapping = ["none", "morning", "noon", "afternoon", "evening"];
 const day_mapping = {"mon":"Monday", "tue":"Tuesday", "wed":"Wednesday", "thu":"Thursday", "fri":"Friday",
 "sat":"Saturday", "sun":"Sunday"};
 
@@ -19,6 +20,7 @@ function populate_events(event) {
 }
 
 function make_container(name, color, number) {
+    medication_mapping[name] = color;
     color_mapping[color] = {"name":name, "number":number};
     console.log(color_mapping);
 
@@ -56,14 +58,14 @@ function send_action(action) {
         type: "POST",
         url: "/message",
         contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({"message": action}),
+        data: JSON.stringify({"message": '(' + action + ')'}),
         dataType: "json"
     });
 }
 
 function calendar_click(pos_id) {
-        var hand_val = my_hand["count"];
-        var hand_color = my_hand["color"];
+        var hand_val = my_hand.count;
+        var hand_color = my_hand.color;
 
         if (hand_val == 1) {
             // var id = clicked_id + calendar_count[clicked_id ]
@@ -74,12 +76,25 @@ function calendar_click(pos_id) {
             // $("#pill:first-child").appendTo($("#"+clicked_id));
             // $("#"+clicked_id).append($("#pill:first-child"));
 
-            my_hand["count"] = 0;
+            my_hand.count = 0;
             // my_hand["type"] = "none";
-            send_action("(add_to_grid " + color_mapping[hand_color]["name"] + " " + day_mapping[pos_id.substring(0,3)] + " " + time_mapping[pos_id.slice(-1)]) + ")";
+            send_action('add_to_grid ' + color_mapping[hand_color].name + ' ' + day_mapping[pos_id.substring(0,3)] + ' ' + time_mapping[pos_id.slice(-1)]);
+            fetch("/message")
+    .then(function(response) {
+        return response.json();
+    })
+    // do something with json
+    .then(function(actionList) {
+        console.log(actionList);
+        $(document).ready(function() {
+            if (actionList != null) {
+                doAction(actionList);
+            }
+        })
+    });
         }
         else {
-            send_action("(add_to_grid " + color_mapping[hand_color]["name"] + " " + day_mapping[pos_id.substring(0,3)] + " " + time_mapping[pos_id.slice(-1)]) + ")";
+            send_action("add_to_grid " + color_mapping[hand_color].name + " " + day_mapping[pos_id.substring(0,3)] + " " + time_mapping[pos_id.slice(-1)]);
             send_action("empty hand");
         }
         
@@ -87,74 +102,93 @@ function calendar_click(pos_id) {
 
 function instruction(instruction_id){
     var color = instruction_id.split("_")[0];
-    send_action("(request-instructions " + color_mapping[color]["name"] + ")");
+    send_action("request-instructions " + color_mapping[color].name);
 }
 
 function med_click(med_id) {
-    var hand_val = my_hand["count"];
+    var hand_val = my_hand.count;
     var color = med_id.match(/[A-Za-z]+/g);
     var med = $("#"+med_id);
     console.log(med_id);
 
     if (hand_val == 1) {
         if (med.parent().parent().attr("id") == "med-area") {
-            send_action("(remove_from_container " + color_mapping[color]["name"] + " )");
+            send_action("remove_from_container " + color_mapping[color].name);
         } else if (med.parent().parent().attr("id") == "grid-container") {
             var calId = med.parent().attr("id");
-            send_action("(remove_from_grid " + color_mapping[color]["name"] + " " + day_mapping[calId.substring(0,3)] + " " + time_mapping[calId.slice(-1)]) + ")";
+            send_action("remove_from_grid " + color_mapping[color].name + " " + day_mapping[calId.substring(0,3)] + " " + time_mapping[calId.slice(-1)]);
         }
         send_action("hand is full");
     }
     else {
         if (med.parent().parent().attr("id") == "med-area") {
-            color_mapping[color]["number"] -= 1;
-            console.log(color_mapping[color]["number"]);
-            send_action("(remove_from_container " + color_mapping[color]["name"] + ")");
+            color_mapping[color].number -= 1;
+            send_action("remove_from_container " + color_mapping[color].name + ")");
         }
         else if (med.parent().parent().attr("id") == "grid-container") {
             var calId = med.parent().attr("id");
             calendar_count[calId] -= 1;
-            send_action("(remove_from_grid " + color_mapping[color]["name"] + " " + day_mapping[calId.substring(0,3)] + " " + time_mapping[calId.slice(-1)]) + ")";
+            send_action("remove_from_grid " + color_mapping[color].name + " " + day_mapping[calId.substring(0,3)] + " " + time_mapping[calId.slice(-1)]);
         }
         med.appendTo("#med");
-        my_hand["count"] = 1;
-        my_hand["color"] = color;
+        my_hand.count = 1;
+        my_hand.color = color;
     }
 }
 
 function container_click(container_id) {
-    var hand_val = my_hand["count"];
+    var hand_val = my_hand.count;
     var containerColor = container_id.split("_")[0];
-    if (medicine_count[containerColor] == 0) {
-        send_action("(remove_from_container " + color_mapping[containerColor]["name"] + ")");
-        send_action(color_mapping[containerColor]["name"] + " container empty");
+    if (color_mapping[containerColor].number == 0) {
+        send_action("remove_from_container " + color_mapping[containerColor].name);
+        send_action(color_mapping[containerColor].name + " container empty");
     } else if (hand_val == 1) {
         var med = document.getElementById("med").firstChild;
         var medColor = med.id.match(/[A-Za-z]+/g);
         if (medColor == containerColor) {
             document.getElementById(containerColor + "_container").appendChild(med);
-            my_hand["count"] = 0;
-            color_mapping[containerColor]["number"] += 1;
+            my_hand.count = 0;
+            color_mapping[containerColor].number += 1;
         }
     }
 }
 
-// function doAction(action) {
-//     if (action["name"] == "sayText") {
-//         action["args"].forEach(function(arg) {
-//             alert(arg);
-//         })
-//     }
-// }
+function doAction(action) {
+    if (action["name"] == "sayText") {
+        alert(action.args);
+    } else if (action["name"] == "pointAt") {
+        var list = action.args.split(' ');
+        if (list.length == 2) {
+            var day = list[0].toLowerCase().slice(0, 3);
+            var time = time_mapping.indexOf(list[1]);
+            $("#"+day+time).addClass("highlight");
+            
+            setTimeout(function() {
+                $("#"+day+time).removeClass('highlight');
+            }, 2000);
+        } else if (list.length == 1) {
+            var color = medication_mapping[action.args];
+            console.log($("#"+color+"_container").children().last().attr("id"))
+            $("#"+color+"_container").children().last().addClass("blink");
+            setTimeout(function() {
+                $("#"+color+"_container").children().last().removeClass('blink');
+            }, 2000);
+        }
+    }
+}
 
-fetch("/action")
+fetch("/message")
     .then(function(response) {
         return response.json();
     })
     // do something with json
     .then(function(actionList) {
         console.log(actionList);
-        // actionList.forEach(doAction);
+        $(document).ready(function() {
+            if (actionList != null) {
+                doAction(actionList)
+            }
+        })
     });
 
 // var json = {"day" : { "Sun": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Mon": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Tues": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Wed": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Thurs": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Fri": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Sat": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } } }

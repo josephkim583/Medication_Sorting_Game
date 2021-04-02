@@ -43,6 +43,8 @@
     width: 200px;
     height: 250px;
     text-align: center;
+    align-items: center;
+    justify-items: center;
     /* color: red; */
     margin-right: 5%;
     padding: 10px;
@@ -61,6 +63,7 @@
     height: 20px;
     width: 50px;
     border-radius: 25%/50%;
+    border: 1px solid;
 }
 
 #info {
@@ -76,4 +79,36 @@
 
 #med {
     display: inline-block;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: #ffff99;
+    }
+
+    100% {
+        background-color: none;
+    }
+}
+
+.highlight {
+    animation: highlight 5s;
+}
+
+@keyframes blink {
+    0% { 
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.blink {
+    animation: border-highlight 0.8s 2;
 }
