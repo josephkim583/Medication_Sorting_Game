@@ -1,0 +1,63 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- external libraries -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <!-- css files -->
+  <link href="{{url_for('static', filename='chat.css')}}" rel=" stylesheet">
+  <link href="{{url_for('static', filename='avatarSpace.css')}}" rel=" stylesheet">
+  <link href="{{url_for('static', filename='interactionSpace.css')}}" rel=" stylesheet">
+  <title>Chat.bot</title>
+</head>
+
+<body>
+  <div class="container mt-3 shadow-lg" style="border-radius: 20px">
+    <div class="row" id="title">chat.bot</div>
+    <div class="row" id="topSpace">
+      <div class="col-5" id="avatarSpace">
+        <figure id="ball" class="ball">
+          <span class="eye" id="eye1"></span>
+          <span class="eye" id="eye2"></span>
+        </figure>
+        <figure id="shadow" class="shadow"></figure>
+      </div>
+      <div class="col-7" id="chatSpace"></div>
+    </div>
+    <div class="row">
+      <div class="col-12" id="userContainer">
+        <form>
+          <div class="input-group">
+            <input id="user" class="form-control" type="text" placeholder="Enter text here">
+            <div class="input-group-append">
+              <button id="submitBtn" class="btn btn-primary"> SUBMIT </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12" id="interactionSpace"></div>  
+    </div>
+  </div>
+  <button class="toggleDebug" style="margin: 10px 0 0 35px"></button>
+  <div id="debug" style="display: none">
+    <button id="btnSleeping" class="btn btn-secondary">sleeping</button>
+    <button id="btnThinking" class="btn btn-secondary">thinking</button>
+    <button id="btnListening" class="btn btn-secondary">listening</button>
+    <button id="btnSpeaking" class="btn btn-secondary">speaking</button>
+    <div id="log" style="height:150px; overflow: auto;"></div>
+  </div>  
+
+  <!--external libraries-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <!-- js files -->
+  <script src="{{url_for('static', filename='avatar.js')}}"></script>
+  <script src="{{url_for('static', filename='chatbox.js')}}"></script>
+  <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+</body>
+</html>
