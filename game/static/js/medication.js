@@ -79,19 +79,6 @@ function calendar_click(pos_id) {
             my_hand.count = 0;
             // my_hand["type"] = "none";
             send_action('add_to_grid ' + color_mapping[hand_color].name + ' ' + day_mapping[pos_id.substring(0,3)] + ' ' + time_mapping[pos_id.slice(-1)]);
-            fetch("/message")
-    .then(function(response) {
-        return response.json();
-    })
-    // do something with json
-    .then(function(actionList) {
-        console.log(actionList);
-        $(document).ready(function() {
-            if (actionList != null) {
-                doAction(actionList);
-            }
-        })
-    });
         }
         else {
             send_action("add_to_grid " + color_mapping[hand_color].name + " " + day_mapping[pos_id.substring(0,3)] + " " + time_mapping[pos_id.slice(-1)]);
@@ -177,19 +164,22 @@ function doAction(action) {
     }
 }
 
-fetch("/message")
-    .then(function(response) {
-        return response.json();
-    })
-    // do something with json
-    .then(function(actionList) {
-        console.log(actionList);
-        $(document).ready(function() {
-            if (actionList != null) {
-                doAction(actionList)
-            }
+// wait async
+function getActionFromServer() {
+    setInterval(function() {
+        fetch("/action")
+        .then(function(response) {
+            return response.json();
         })
-    });
+        // do something with json
+        .then(function(actionList) {
+            console.log(actionList);
+            actionList.forEach(doAction);
+        });
+    }, 1000);
+};
+
+$(document).ready(getActionFromServer);
 
 // var json = {"day" : { "Sun": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Mon": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Tues": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Wed": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Thurs": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Fri": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Sat": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } } }
 // console.log(json["day"]["Sun"]["1"]["red"]);
