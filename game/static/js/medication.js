@@ -26,7 +26,7 @@ function make_container(name, color, number) {
 
     var container = document.createElement("div");
     container.id = color + "_container";
-    container.classList.add("container");
+    container.classList.add("med-container");
     container.setAttribute("onclick", "container_click(this.id);");
     container.style.border = "2px solid " + color;
     document.getElementById("med-area").appendChild(container);
@@ -54,13 +54,16 @@ function make_container(name, color, number) {
 }
 
 function send_action(action) {
-    $.ajax({
-        type: "POST",
-        url: "/message",
-        contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({"message": '(' + action + ')'}),
-        dataType: "json"
-    });
+    fetch("message", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({"message": '(' + action + ')'})
+    })
+    .then(response => response.json())
+    .then(actionList => actionList.forEach(doAction))
 }
 
 function calendar_click(pos_id) {
@@ -165,21 +168,21 @@ function doAction(action) {
 }
 
 // wait async
-function getActionFromServer() {
-    setInterval(function() {
-        fetch("/action")
-        .then(function(response) {
-            return response.json();
-        })
-        // do something with json
-        .then(function(actionList) {
-            console.log(actionList);
-            actionList.forEach(doAction);
-        });
-    }, 1000);
-};
+// function getActionFromServer() {
+//     setInterval(function() {
+//         fetch("/message")
+//         .then(function(response) {
+//             return response.json();
+//         })
+//         // do something with json
+//         .then(function(actionList) {
+//             console.log(actionList);
+//             actionList.forEach(doAction);
+//         });
+//     }, 5000);
+// };
 
-$(document).ready(getActionFromServer);
+// $(document).ready(getActionFromServer);
 
 // var json = {"day" : { "Sun": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Mon": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Tues": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Wed": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Thurs": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Fri": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Sat": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } } }
 // console.log(json["day"]["Sun"]["1"]["red"]);

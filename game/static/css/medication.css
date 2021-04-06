@@ -35,7 +35,7 @@
     font-size: 15px;
 }
 
-.container {
+.med-container {
     float: left;
     display: grid;
     grid-template-columns: auto auto auto ;
