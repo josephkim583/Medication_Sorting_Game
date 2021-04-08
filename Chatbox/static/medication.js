@@ -22,7 +22,7 @@ function populate_events(event) {
 function make_container(name, color, number) {
     medication_mapping[name] = color;
     color_mapping[color] = {"name":name, "number":number};
-    console.log(color_mapping);
+    // console.log(color_mapping);
 
     var container = document.createElement("div");
     container.id = color + "_container";
@@ -54,22 +54,48 @@ function make_container(name, color, number) {
 }
 
 function receive_action() {
-    fetch("message")
+    fetch("/message")
     .then(response => response.json())
     .then(actionList => actionList.forEach(doAction))
 }
 
 function send_action(action) {
-    fetch("message", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
+    // fetch("/message", {
+    //     method: "POST",
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
 
-        body: JSON.stringify({"message": '(' + action + ')'})
+    //     body: {"botm": '(' + action + ')'}
+    // })
+    // .then(function(response) {
+    //     message(action);
+    //     updateScroll();
+    //     return response.json();
+    // })
+    // .then(actionList => actionList.forEach(doAction))
+
+    $.post("/message", {
+        "botm": '(' + action + ')'
+    }, function(data) {
+        data["actionList"].forEach(doAction);
+        message(data);
+        updateScroll();
+        
     })
-    .then(response => response.json())
-    .then(actionList => actionList.forEach(doAction))
+
+    // $.ajax({
+    //     url: $SCRIPT_ROOT + "/message",
+    //         type: "POST",
+    //         data: JSON.stringify({"botm": action}),
+    //         contentType:"application/json; charset=utf-8",
+    //         dataType:"json",
+    //         success: function (data) {
+    //             message(data);
+    //             updateScroll();
+    //             receive_action();
+    //         }
+    // })
 }
 
 function calendar_click(pos_id) {
@@ -119,7 +145,7 @@ function med_click(med_id) {
     else {
         if (med.parent().parent().attr("id") == "med-area") {
             color_mapping[color].number -= 1;
-            send_action("remove_from_container " + color_mapping[color].name + ")");
+            send_action("remove_from_container " + color_mapping[color].name);
         }
         else if (med.parent().parent().attr("id") == "grid-container") {
             var calId = med.parent().attr("id");
@@ -172,23 +198,5 @@ function doAction(action) {
         }
     }
 }
-
-// wait async
-// function getActionFromServer() {
-//     setInterval(function() {
-//         fetch("/message")
-//         .then(function(response) {
-//             return response.json();
-//         })
-//         // do something with json
-//         .then(function(actionList) {
-//             console.log(actionList);
-//             actionList.forEach(doAction);
-//         });
-//     }, 5000);
-// };
-
-// $(document).ready(getActionFromServer);
-
 // var json = {"day" : { "Sun": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Mon": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Tues": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Wed": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Thurs": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Fri": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Sat": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } } }
 // console.log(json["day"]["Sun"]["1"]["red"]);

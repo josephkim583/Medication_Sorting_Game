@@ -1,0 +1,115 @@
+#grid-container {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    padding: 10px;
+    max-height: 50vh;
+    margin-bottom: 50px;
+  }
+  
+#grid-container > div {
+    background-color: white;
+    border: 0.5px solid skyblue;
+    text-align: center;
+    font-size: 25px;
+    height: 90%;
+    padding-bottom: 10px;
+
+    /* change when imported */
+    box-sizing: unset;
+}
+
+#grid-container > div > span {
+    /* font-size: 30px; */
+    display: block;
+    width: 100%;
+}
+
+#grid-container > div > div {
+    margin-top: 2px;
+    margin-left: 2px;
+    display: inline-block;
+    vertical-align: top;
+    /* float: left; */
+    width: 30px;
+    height: 10px;
+  }
+
+.time > p{
+    font-size: 15px;
+}
+
+.med-container {
+    float: left;
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    grid-template-rows: auto auto auto auto; 
+    width: 200px;
+    height: 250px;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    /* color: red; */
+    margin-right: 5%;
+    padding: 10px;
+    padding-top: 10px;
+    border-radius: 25px;
+}
+
+.time{
+    width: 100%;
+    border: 2px;
+    font-size: 10px;
+}
+
+.med {
+    /* float: left; */
+    height: 20px;
+    width: 50px;
+    border-radius: 25%/50%;
+    border: 1px solid;
+}
+
+#info {
+    float: left;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 30px;
+    text-align: center;
+  }
+
+#med {
+    display: inline-block;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: #ffff99;
+    }
+
+    100% {
+        background-color: none;
+    }
+}
+
+.highlight {
+    animation: highlight 5s;
+}
+
+@keyframes blink {
+    0% { 
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.blink {
+    animation: border-highlight 0.8s 2;
+}
