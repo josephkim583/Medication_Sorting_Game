@@ -41,9 +41,10 @@
   }
   
   #chatSpace {
-    overflow: auto;
+    overflow-y: scroll;
     padding: 15px;
     background-color: #ece9f3;
+    max-height: 100%;
   }
   
   #debug {
