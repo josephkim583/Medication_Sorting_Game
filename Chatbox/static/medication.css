@@ -88,12 +88,12 @@
     }
 
     100% {
-        background-color: none;
+        background-color: #ffff99;
     }
 }
 
 .highlight {
-    animation: highlight 5s;
+    animation: highlight 10s;
 }
 
 @keyframes blink {
@@ -111,5 +111,5 @@
 }
 
 .blink {
-    animation: border-highlight 0.8s 2;
+    animation: blink 0.8s 5;
 }

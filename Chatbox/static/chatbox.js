@@ -1,10 +1,19 @@
 function message(botm) {
     // if there's user input
-    // if ($('#user').val()) {
-    //     addUserInput();
-    // }
+    var userInput = $('#user').val();
+    if (userInput) {
+        addUserInput(userInput);
+        if (userInput == "how to play") {
+            tutorial();
+        }
+        $("#user").parent().parent()[0].reset();
+    }
 
-    addUserInput(botm);
+    else if (botm["userInput"]) {
+        addUserInput(botm["userInput"])
+    }
+
+    // addUserInput(botm);
 
     // create a row div
     var botRow = document.createElement("div");
@@ -16,30 +25,40 @@ function message(botm) {
 
     // set text to bot output
     $(newBotDiv).append(botm["start"]);
+
+    if (botm["action"]) {
+        // processActionList(botm["actionList"]);
+        doAction(botm["action"]);
+    }
+
     if (botm['state']){
-      $(newBotDiv).append(botm["state"] + "\n");
+    //   $(newBotDiv).append(botm["state"] + "\n");
+        animateAvatar(botm["state"]);
     }
     $(newBotDiv).append(botm["hint"]);
     $(newBotDiv).append(botm["end"]);
 
     // add newbotDiv as child of row and add row to child of chatSpace
-    $(botRow).append($(newBotDiv));
-    $("#chatSpace").append($(botRow));
-
+    if ($(newBotDiv).text() != "") {
+        $(botRow).append($(newBotDiv));
+        $("#chatSpace").append($(botRow));
+        $("#chatSpace").get(0).scrollIntoView({ behavior: 'smooth' });
+    } 
+    
     // TODO add debugging log
     // TODO add avatar status
 }
 
-function addUserInput(botm) {
+function addUserInput(userInput) {
     // create a row div
     var userRow = document.createElement("div");
     $(userRow).addClass("row");
 
     // create a newuserDiv div and set text to user input
     var newUserDiv = document.createElement("div");
-    console.log(botm["start"])
+    console.log(userInput)
     $(newUserDiv).addClass("newuserDiv")
-                 .html($('#user').val())
+                 .html(userInput)
     // add newuserDiv as child of row, and add row as child of chatSpace
     $(userRow).append($(newUserDiv));
     $("#chatSpace").append($(userRow));
