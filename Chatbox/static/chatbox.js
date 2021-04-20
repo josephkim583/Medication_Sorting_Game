@@ -72,8 +72,10 @@ $(document).ready(function () {
 
     $.post($SCRIPT_ROOT + "/startgame", {    },
         function (data) {
-          message(data);
-          updateScroll();
+            console.log("start game")
+            medInit(data);
+            message(data);
+            updateScroll();
     });
 
     

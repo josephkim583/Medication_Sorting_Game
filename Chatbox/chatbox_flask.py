@@ -113,21 +113,23 @@ def message():
 def chatbox():
     # session.pop('user', None)
     # session['user'] = uuid.uuid4()
-    # if "calendar_count" not in session:
-    session["calendar_count"] = {}
+    
+    # session["calendar_count"] = {}
         
 
-    if "events" not in session:
-        session["events"] = [{"name": "exercise", "day": "mon", "time":"1"}, {"name":"appointment", "day":"thu", "time":"2"},
-                {"name":"work", "day":"sat","time":"3"}]
-    
-    if "medications" not in session:
-        session["medications"] = [{"name":"ibuprofen", "color":"red", "number":"11"}, {"name":"aspirin", "color":"blue", "number":"15"},
-    {"name":"albuterol", "color":"green", "number":"7"}]
+    # if "events" not in session:
+    #     session["events"] = [{"name": "exercise", "day": "mon", "time":"1"}, {"name":"appointment", "day":"thu", "time":"2"},
+    #             {"name":"work", "day":"sat","time":"3"}]
+        
+    # if "medications" not in session:
+    #     session["medications"] = [{"name":"ibuprofen", "color":"red", "number":"11"}, {"name":"aspirin", "color":"blue", "number":"15"},
+    # {"name":"albuterol", "color":"green", "number":"7"}]
 
-    # create session, initialize and start the game
-    return render_template('index.html', events=session.get("events"), medications=session.get("medications"))
+    #create session, initialize and start the game
+    # return render_template('index.html', events=session.get("events"), medications=session.get("medications"))
+    return render_template("index.html")
 
+#################### PREVIOUS PROJECT CODE #######################
 #Session Manager
 # @app.route('/processOne', methods=['GET', 'POST'])
 # def processOne():
@@ -148,15 +150,27 @@ def chatbox():
 #     output = {'start': message}
 #     print (message)
 #     return jsonify(output)
-
+#############################################################
 
 # initializes the game at the beginning
 @app.route('/startgame', methods=['GET', 'POST'])
 def startgame():
     # message = newSession(session['user'])
-    message = "Hello, what would you like to do?"
-    output = {'start': message}
+    session["calendar_count"] = {}
+
+    if "events" not in session:
+        session["events"] = [{"name": "exercise", "day": "mon", "time":"1"}, {"name":"appointment", "day":"thu", "time":"2"},
+                {"name":"work", "day":"sat","time":"3"}]
+    
+    if "medications" not in session:
+        session["medications"] = [{"name":"ibuprofen", "color":"red", "number":"11"}, {"name":"aspirin", "color":"blue", "number":"15"},
+    {"name":"albuterol", "color":"green", "number":"7"}]
+    
+    output = {"events": session.get("events"), "medications": session.get("medications"), "start":"Game started! Do you want to see the tutorial?"}
     return jsonify(output)
+
+# @app.route("/init", methods=["GET", "POST"])
+# def init():
 
 
 if __name__ == "__main__":

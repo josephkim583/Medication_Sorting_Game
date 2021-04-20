@@ -45,6 +45,15 @@
     padding: 15px;
     background-color: #ece9f3;
     max-height: 100%;
+    font-size: x-large;
+  }
+
+  #user, #user::-webkit-input-placeholder {
+    font-size: x-large;
+  }
+
+  #submitBtn {
+    font-size: x-large;
   }
   
   #debug {

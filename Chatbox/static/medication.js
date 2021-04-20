@@ -8,6 +8,7 @@ var calendar_count = {"mon1": 0, "mon2": 0, "mon3": 0, "mon4": 0, "tue1": 0, "tu
 const time_mapping = ["none", "morning", "noon", "afternoon", "evening"];
 const day_mapping = {"mon":"Monday", "tue":"Tuesday", "wed":"Wednesday", "thu":"Thursday", "fri":"Friday",
 "sat":"Saturday", "sun":"Sunday"};
+const dayList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 var tutorialPhase = false;
 var tutorialStep = 0;
@@ -18,7 +19,6 @@ function tutorial() {
         if (data) {
             message(data);
             updateScroll();
-            // tutorial(position+1);
         } else {
             message({"hint":"Congratulations! You have finished the tutorial"})
             tutorialPhase = false;
@@ -26,13 +26,74 @@ function tutorial() {
     })
 }
 
-// function make_calendar() {
-//     var title = document.createElement("h1");
-//     title.textContent = "Medication Sorting";
-//     title.style = "text-align: center";
+function medInit(serverInput) {
+    var events = serverInput["events"];
+    var medications = serverInput["medications"];
 
-//     $("#interactionSpace")
-// }
+    generate_layout();
+    events.forEach(populate_events); 
+
+    medications.forEach(function(medication) {
+        var name = medication["name"];
+        var color = medication["color"];
+        var number = parseInt(medication["number"]);
+        make_container(name, color, number);
+    });
+}
+
+function generate_layout() {
+    var title = document.createElement("h1");
+    title.textContent = "Medication Sorting";
+    title.style = "text-align: center";
+
+    $("#interactionSpace").append(title);
+
+    var gridContainer = document.createElement("div");
+    gridContainer.id = "grid-container";
+    $("#interactionSpace").append(gridContainer);
+
+    for (let i = 0; i < time_mapping.length; i++) {
+        var timeDiv = document.createElement("div");
+        $(timeDiv).addClass("time");
+        if (time_mapping[i] != "none") {
+            var timeName = document.createElement("p");
+            $(timeName).text(time_mapping[i]);
+            $(timeDiv).append(timeName);
+        }
+        $(gridContainer).append(timeDiv);
+
+        for (let j = 0; j < dayList.length; j++) {
+            var dayDiv = document.createElement("div");
+            if (time_mapping[i] == "none") {
+                $(dayDiv).text(dayList[j]);
+            } else {
+                dayDiv.id = dayList[j].toLowerCase() + i;
+                $(dayDiv).attr("onclick", "calendar_click(this.id);");
+
+            }
+            $(gridContainer).append(dayDiv);
+        }
+    }
+
+    var br = document.createElement("br");
+    $("#interactionSpace").append(br);
+
+    var medAreaDiv = document.createElement("div");
+    medAreaDiv.id = "med-area";
+    $("#interactionSpace").append(medAreaDiv);
+
+    var infoDiv = document.createElement("div");
+    infoDiv.id = "info";
+    $(medAreaDiv).append(infoDiv);
+
+    var hand = document.createElement("p");
+    $(hand).text("Hand");
+    $(infoDiv).append(hand);
+
+    var medDiv = document.createElement("div");
+    medDiv.id = "med";
+    $(infoDiv).append(medDiv);
+}
 
 function populate_events(event) {
     var div = document.getElementById(event.day + event.time);

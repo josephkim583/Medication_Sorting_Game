@@ -29,9 +29,9 @@
       <div class="col-12" id="userContainer">
         <form>
           <div class="input-group">
-            <input id="user" class="form-control" type="text" placeholder="Enter text here">
+            <input id="user" class="form-control" type="text" placeholder="Send message to Q">
             <div class="input-group-append">
-              <button id="submitBtn" class="btn btn-primary"> SUBMIT </button>
+              <button id="submitBtn" class="btn btn-primary"> SEND </button>
             </div>
           </div>
         </form>
@@ -39,130 +39,7 @@
     </div>
     <div class="row">
       <div class="col-12" id="interactionSpace">
-        <h1 style = "text-align: center">Medication Sorting</h1>
-        <div id="grid-container">
-          <!-- Days -->
-          <div class = "time"></div>
-          <div>Sun</div>
-          <div>Mon</div>
-          <div>Tue</div>
-          <div>Wed</div>  
-          <div>Thu</div>
-          <div>Fri</div>
-          <div>Sat</div>
-
-          <!-- Morning -->
-          <div class = "time">
-              <p> Morning </p>
-          </div>
-          <div id = "sun1" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "mon1" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "tue1" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "wed1" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "thu1" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "fri1" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "sat1" onclick="calendar_click(this.id);">
-              
-          </div>
-
-          <!-- Noon -->
-          <div class = "time">
-              <p> Noon </p>
-          </div>
-          <div id = "sun2" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "mon2" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "tue2" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "wed2" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "thu2" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "fri2" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "sat2" onclick="calendar_click(this.id);">
-              
-          </div>
         
-          <!-- Afternoon -->
-          <div class = "time">
-              <p> Afternoon </p>
-          </div>
-          <div id = "sun3" onclick="calendar_click(this.id);">
-              
-          </div>  
-          <div id = "mon3" onclick="calendar_click(this.id);">
-              
-          </div>  
-          <div id = "tue3" onclick="calendar_click(this.id);">
-              
-          </div> 
-          <div id = "wed3" onclick="calendar_click(this.id);">
-              
-          </div>  
-          <div id = "thu3" onclick="calendar_click(this.id);">
-              
-          </div>  
-          <div id = "fri3" onclick="calendar_click(this.id);">
-              
-          </div>  
-          <div id = "sat3" onclick="calendar_click(this.id);">
-              
-          </div>  
-          
-          <!-- Evening -->
-          <div class = "time">
-              <p>Evening</p>
-          </div>
-          <div id = "sun4" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "mon4" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "tue4" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "wed4" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "thu4" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "fri4" onclick="calendar_click(this.id);">
-              
-          </div>
-          <div id = "sat4" onclick="calendar_click(this.id);">
-              
-          </div>
-      </div>
-      <br>
-
-      <div id="med-area">
-          <div id = "info">
-              <p>Hand:</p>
-              <div id="med"></div>
-          </div>
-      </div> 
       </div>  
     </div>
   </div>
@@ -184,18 +61,6 @@
   <script src="{{url_for('static', filename='chatbox.js')}}"></script>
   <script src="{{url_for('static', filename='medication.js')}}"></script>
   
-  <script type="text/javascript"> 
-      var events = JSON.parse('{{ events | tojson | safe }}');
-      events.forEach(populate_events); 
-
-      var medications = JSON.parse('{{ medications | tojson | safe }}');
-      medications.forEach(function(medication) {
-          var name = medication["name"];
-          var color = medication["color"];
-          var number = parseInt(medication["number"]);
-          make_container(name, color, number);
-      });
-  </script>
   <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   </script>
