@@ -282,30 +282,14 @@ function container_click(container_id) {
 }
 
 function doAction(action) {
-    if (action["name"] == "pointAt") {
-        var list = action.args.split(' ');
-        if (list.length == 2) {
-            var day = list[0].toLowerCase().slice(0, 3);
-            var time = time_mapping.indexOf(list[1]);
-            $("#"+day+time).get(0).scrollIntoView({ behavior: 'smooth' });
-            $("#"+day+time).addClass("highlight");
-            
-            setTimeout(function() {
-                $("#"+day+time).removeClass('highlight');
-            }, 5000);
-        } else if (list.length == 1) {
-            var color = medication_mapping[action.args];
-            console.log($("#"+color+"_container").children().last().attr("id"))
-            $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
-            $("#"+color+"_container").children().last().addClass("blink");
-            setTimeout(function() {
-                $("#"+color+"_container").children().last().removeClass('blink');
-            }, 3000);
-        }
+    if (action.name == "pointAt") {
+        pointAt(action.args);
+    } else if (action.name == "showImage") {
+        showImgPopup(action.args);
     }
 }
 
-function showImgPopup() {
+function showImgPopup(imgSrc) {
     console.log("show popup");
     var imgPopup = document.createElement("div");
     imgPopup.id = "popup";
@@ -321,7 +305,7 @@ function showImgPopup() {
     $(closeBtn).text("X");
     $(imgPopup).append(closeBtn);
     
-    var imgSrc = "static/pill_interaction.png";
+    // var imgSrc = "static/pill_interaction.png";
     var img = document.createElement("img");
     img.src = imgSrc;
     $(imgPopup).append(img);
@@ -334,4 +318,26 @@ function showImgPopup() {
         $(imgPopup).fadeOut(100)
         $(overlay).fadeOut(100);
     });
+}
+
+function pointAt(args) {
+    var list = args.split(' ');
+    if (list.length == 2) {
+        var day = list[0].toLowerCase().slice(0, 3);
+        var time = time_mapping.indexOf(list[1]);
+        $("#"+day+time).get(0).scrollIntoView({ behavior: 'smooth' });
+        $("#"+day+time).addClass("highlight");
+        
+        setTimeout(function() {
+            $("#"+day+time).removeClass('highlight');
+        }, 5000);
+    } else if (list.length == 1) {
+        var color = medication_mapping[action.args];
+        console.log($("#"+color+"_container").children().last().attr("id"))
+        $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
+        $("#"+color+"_container").children().last().addClass("blink");
+        setTimeout(function() {
+            $("#"+color+"_container").children().last().removeClass('blink');
+        }, 3000);
+    }
 }

@@ -79,7 +79,7 @@ $(document).ready(function () {
     });    
 
     // TODO move this to an init file
-    animateAvatar("questioning");
+    animateAvatar("sleeping");
 
     // TODO also put this in an init file
     $("#btnSleeping").click(function() {animateAvatar('sleeping')});

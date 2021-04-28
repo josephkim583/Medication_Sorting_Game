@@ -14,6 +14,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 @app.route("/tutorial", methods=["GET", "POST"])
+# separate route to deal with tutorial 
 def tutorial():
     actionList = [{"name":"pointAt", "args":"aspirin"}, {"name":"pointAt", "args":"monday noon"}]
     hintList = ["first click on an aspirin pill to grab", "now click on the highlighted position on a calendar to drop the pill"]
@@ -68,6 +69,13 @@ def message():
             start = "goodbye!"
         elif "thank you" in message:
             start = "you are welcome!"
+        elif "no" in message and session.get("toUser")[-1]["state"] == "questioning":   # may include problem/question type?
+            state = "speaking"
+            hint = "here is an image to help"
+            action = {"name":"showImage", "args":"static/pill_interaction.png"}
+        elif "what" in message and session.get("toUser")[-1]["state"] == "questioning":
+            state = "questioning"
+            hint = "Do you remember the interaction for the blue pill?"
         elif "add_to_grid" in message:
             messageList = message[1:-1].split(" ")
             med = messageList[1]
@@ -91,13 +99,15 @@ def message():
                     time = time_mapping[int(overdose[1][-1])]
                     hint = "too many " + overdose[0] + " on " + day + " " + time
                     action = {"name":"pointAt", "args":day + " " + time}
+                # demo part
                 else:
                     incompatible = interactionCheck()
                     if incompatible != None:
                         hint = "ibuprofen and aspirin should not be used together"
                         day = day_mapping[incompatible[:3]]
                         time = time_mapping[int(incompatible[-1])]
-                        action = {"name":"pointAt", "args":day + " " + time}
+                        state = "questioning"
+                        hint = "huhhhhhh????"
                 
         elif "remove_from_grid" in message:
             messageList = message[1:-1].split(" ")
@@ -105,7 +115,9 @@ def message():
             position = messageList[2][:3].lower() + str(time_mapping.index(messageList[-1]))
             session.get("calendar_count")[position][med] -= 1
 
+        session.get("fromUser").append(message)
         output = {"start": start, "action": action, "hint": hint, "state":state, "userInput":message}
+        session.get("toUser").append(output)
         return jsonify(output)
 
 
@@ -141,6 +153,8 @@ def chatbox():
 def startgame():
     # message = newSession(session['user'])
     session["calendar_count"] = {}
+    session["fromUser"] = []
+    session["toUser"] = []
 
     if "events" not in session:
         session["events"] = [{"name": "exercise", "day": "mon", "time":"1"}, {"name":"appointment", "day":"thu", "time":"2"},
