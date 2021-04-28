@@ -111,22 +111,6 @@ def message():
 
 @app.route('/', methods=['GET'])
 def chatbox():
-    # session.pop('user', None)
-    # session['user'] = uuid.uuid4()
-    
-    # session["calendar_count"] = {}
-        
-
-    # if "events" not in session:
-    #     session["events"] = [{"name": "exercise", "day": "mon", "time":"1"}, {"name":"appointment", "day":"thu", "time":"2"},
-    #             {"name":"work", "day":"sat","time":"3"}]
-        
-    # if "medications" not in session:
-    #     session["medications"] = [{"name":"ibuprofen", "color":"red", "number":"11"}, {"name":"aspirin", "color":"blue", "number":"15"},
-    # {"name":"albuterol", "color":"green", "number":"7"}]
-
-    #create session, initialize and start the game
-    # return render_template('index.html', events=session.get("events"), medications=session.get("medications"))
     return render_template("index.html")
 
 #################### PREVIOUS PROJECT CODE #######################

@@ -76,23 +76,17 @@ $(document).ready(function () {
             medInit(data);
             message(data);
             updateScroll();
-    });
-
-    
-
-    // TODO break this down like a controller function
-    
-
-    
+    });    
 
     // TODO move this to an init file
-    animateAvatar("sleeping");
+    animateAvatar("questioning");
 
     // TODO also put this in an init file
     $("#btnSleeping").click(function() {animateAvatar('sleeping')});
     $("#btnThinking").click(function() {animateAvatar('thinking')});
     $("#btnListening").click(function() {animateAvatar('listening')});
     $("#btnSpeaking").click(function() {animateAvatar('speaking')});
+    $("#btnQuestioning").click(function() {animateAvatar('questioning')});
 
     // TODO also put this in an init file
     $(".toggleDebug").click(function() {
@@ -113,4 +107,6 @@ $(document).ready(function () {
         // Joseph's code. Maybe this is the same as the above return false?
         // 	event.preventDefault();
     });
+
+    $("#showImgPopup").click(showImgPopup);
 });

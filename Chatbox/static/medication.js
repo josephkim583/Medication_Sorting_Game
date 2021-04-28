@@ -21,7 +21,9 @@ function tutorial() {
             updateScroll();
         } else {
             message({"hint":"Congratulations! You have finished the tutorial"})
+            updateScroll();
             tutorialPhase = false;
+            tutorialStep = 0;
         }
     })
 }
@@ -45,7 +47,6 @@ function generate_layout() {
     var title = document.createElement("h1");
     title.textContent = "Medication Sorting";
     title.style = "text-align: center";
-
     $("#interactionSpace").append(title);
 
     var gridContainer = document.createElement("div");
@@ -299,49 +300,38 @@ function doAction(action) {
             $("#"+color+"_container").children().last().addClass("blink");
             setTimeout(function() {
                 $("#"+color+"_container").children().last().removeClass('blink');
-            }, 4000);
+            }, 3000);
         }
     }
 }
 
-// async function processActionList(actionList) {
-//     for (const action of actionList) {
-//         await doAction(action);
-//     }
-// }
+function showImgPopup() {
+    console.log("show popup");
+    var imgPopup = document.createElement("div");
+    imgPopup.id = "popup";
+    
 
-// function doAction(action) {
-//     return new Promise((resolve, reject) => {
-//         try {
-//             if (action["name"] == "pointAt") {
-//                 var list = action.args.split(' ');
-//                 if (list.length == 2) {
-//                     var day = list[0].toLowerCase().slice(0, 3);
-//                     var time = time_mapping.indexOf(list[1]);
-//                     $("#"+day+time).get(0).scrollIntoView({ behavior: 'smooth' });
-//                     $("#"+day+time).addClass("highlight");
-                    
-//                     setTimeout(function() {
-//                         $("#"+day+time).removeClass('highlight');
-//                         resolve()
-//                     }, 2000);
-//                 } else if (list.length == 1) {
-//                     var color = medication_mapping[action.args];
-//                     console.log($("#"+color+"_container").children().last().attr("id"))
-//                     $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
-//                     $("#"+color+"_container").children().last().addClass("blink");
-//                     setTimeout(function() {
-//                         $("#"+color+"_container").children().last().removeClass('blink');
-//                         resolve()
-//                     }, 2000);
-//                 }
-//             }
-//         } catch(err) {
-//             reject("error");
-//         }
-        
-        
-//     })
-// }
-// var json = {"day" : { "Sun": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Mon": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Tues": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Wed": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Thurs": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Fri": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } , "Sat": { "1": { "red" : 0, "blue" : 0 } , "2": { "red" : 0, "blue" : 0 } , "3": { "red" : 0, "blue" : 0 } , "4": { "red" : 0, "blue" : 0 } } } }
-// console.log(json["day"]["Sun"]["1"]["red"]);
+    var overlay = document.createElement("div");
+    overlay.id = "overlay";
+    $(overlay).append(imgPopup);
+    $("body").append(overlay);
+
+    var closeBtn = document.createElement("button");
+    closeBtn.id = "close";
+    $(closeBtn).text("X");
+    $(imgPopup).append(closeBtn);
+    
+    var imgSrc = "static/pill_interaction.png";
+    var img = document.createElement("img");
+    img.src = imgSrc;
+    $(imgPopup).append(img);
+
+    $(imgPopup).hide().fadeIn(100);
+
+    $(closeBtn).click(function (e) { 
+        e.preventDefault();
+        e.stopPropagation();
+        $(imgPopup).fadeOut(100)
+        $(overlay).fadeOut(100);
+    });
+}

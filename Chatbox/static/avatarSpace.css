@@ -58,6 +58,21 @@
     top: -20px;
     transform: skewX(5deg) skewY(2deg);
   }
+
+  #questionMark {
+    position: relative;
+    color: red;
+    font-size: 70px;
+    bottom: 80px;
+    left: 275px;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  .wobble {
+    visibility: visible;
+    animation: wobble 1s 1s 3;
+  }
   
   .eye {
     width: 30%;
@@ -208,4 +223,28 @@
     0% { transform: scale(1); }
     75% { transform: scale(1.03) translateY(-2px) ; }
     100% { transform: scale(1); }
+  }
+
+  /*** Questioning ***/
+  @keyframes wobble {
+    0%,
+    100% {
+      transform: translateX(0%);
+      /* transform-origin: 50% 50%; */
+    }
+    15% {
+      transform: translateX(-30px) rotate(-6deg);
+    }
+    30% {
+      transform: translateX(15px) rotate(6deg);
+    }
+    45% {
+      transform: translateX(-15px) rotate(-3.6deg);
+    }
+    60% {
+      transform: translateX(9px) rotate(2.4deg);
+    }
+    75% {
+      transform: translateX(-6px) rotate(-1.2deg);
+    }
   }
