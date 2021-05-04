@@ -22,15 +22,15 @@ def tutorial():
     if request.method == "POST":
         pos = int(request.form["position"])
         response = request.form["response"]
-        print(response)
+        # print(response)
         proceed = False
 
         if "remove_from_container aspirin" in response or "add_to_grid" in response:
-            print("proceed")
+            # print("proceed")
             proceed = True
 
         if pos < len(actionList):
-            output = {"action":actionList[pos], "hint":hintList[pos], "proceed":proceed}
+            output = {"action": actionList[pos], "hint": hintList[pos], "proceed": proceed}
         else:
             output = None
         return jsonify(output)

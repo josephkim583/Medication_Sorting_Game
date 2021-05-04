@@ -332,7 +332,7 @@ function pointAt(args) {
             $("#"+day+time).removeClass('highlight');
         }, 5000);
     } else if (list.length == 1) {
-        var color = medication_mapping[action.args];
+        var color = medication_mapping[args];
         console.log($("#"+color+"_container").children().last().attr("id"))
         $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
         $("#"+color+"_container").children().last().addClass("blink");

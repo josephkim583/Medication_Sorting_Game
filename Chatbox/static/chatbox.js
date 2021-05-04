@@ -3,7 +3,7 @@ function message(botm) {
     var userInput = $('#user').val();
     if (userInput) {
         addUserInput(userInput);
-        if (userInput == "how to play") {
+        if (userInput.includes("how to play")) {
             tutorial();
         }
         $("#user").parent().parent()[0].reset();
