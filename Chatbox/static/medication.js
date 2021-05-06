@@ -102,8 +102,8 @@ function populate_events(event) {
         div.removeChild(div.lastChild);
     }
     var span = document.createElement("span");
-    span.innerHTML = event.name;
-    div.appendChild(span);
+    $(span).html(event.name);
+    $(div).append(span);
 }
 
 function make_container(name, color, number) {
@@ -113,30 +113,30 @@ function make_container(name, color, number) {
 
     var container = document.createElement("div");
     container.id = color + "_container";
-    container.classList.add("med-container");
-    container.setAttribute("onclick", "container_click(this.id);");
-    container.style.border = "2px solid " + color;
-    document.getElementById("med-area").appendChild(container);
+    $(container).addClass("med-container");
+    $(container).attr("onclick", "container_click(this.id)");
+    $(container).attr("style", "border: 2px solid " + color);
+    $("#med-area").append(container);
 
     var span = document.createElement("span");
-    container.appendChild(span);
-    span.innerHTML = name;
+    $(container).append(span);
+    $(span).html(name);
     
     var info = document.createElement("i");
     info.id = color + "_instruction";
     info.style.color = color;
-    info.classList.add("fa");
-    info.classList.add("fa-info-circle");
-    info.setAttribute("onclick", "instruction(this.id);");
-    container.appendChild(info);
+    $(info).addClass("fa");
+    $(info).addClass("fa-info-circle");
+    $(info).attr("onclick", "instruction(this.id);");
+    $(container).append(info);
 
     for (var i = 0; i < number; i++) {
         var med = document.createElement("div");
         med.id = "" + color + (i+1);
-        med.classList.add("med");
-        med.setAttribute("onclick", "med_click(this.id); event.stopPropagation();");
+        $(med).addClass("med");
+        $(med).attr("onclick", "med_click(this.id); event.stopPropagation();");
         med.style.backgroundColor = color;
-        container.appendChild(med);
+        $(container).append(med);
     }
 }
 
@@ -147,27 +147,11 @@ function receive_action() {
 }
 
 function send_action(action) {
-    // fetch("/message", {
-    //     method: "POST",
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-
-    //     body: {"botm": '(' + action + ')'}
-    // })
-    // .then(function(response) {
-    //     message(action);
-    //     updateScroll();
-    //     return response.json();
-    // })
-    // .then(actionList => actionList.forEach(doAction))
     if (tutorialPhase) {
         $.post("/tutorial", {
             "position": tutorialStep,
             "response": '(' + action + ')'
         }, function(data) {
-            // data["actionList"].forEach(doAction);
-            // processActionList(data["actionList"]);
             if (data) {
                 if (data["proceed"]) {
                     tutorialStep += 1;
@@ -180,28 +164,12 @@ function send_action(action) {
         $.post("/message", {
             "botm": '(' + action + ')'
         }, function(data) {
-            // data["actionList"].forEach(doAction);
-            // processActionList(data["actionList"]);
             doAction(data["action"]);
             message(data);
             updateScroll();
             
         })
     }
-    
-
-    // $.ajax({
-    //     url: $SCRIPT_ROOT + "/message",
-    //         type: "POST",
-    //         data: JSON.stringify({"botm": action}),
-    //         contentType:"application/json; charset=utf-8",
-    //         dataType:"json",
-    //         success: function (data) {
-    //             message(data);
-    //             updateScroll();
-    //             receive_action();
-    //         }
-    // })
 }
 
 function calendar_click(pos_id) {
@@ -212,17 +180,15 @@ function calendar_click(pos_id) {
         // var id = clicked_id + calendar_count[clicked_id ]
         calendar_count[pos_id] += 1;
 
-        var med = document.getElementById("med").firstChild;
-        document.getElementById(pos_id).appendChild(med);
-        // $("#pill:first-child").appendTo($("#"+clicked_id));
-        // $("#"+clicked_id).append($("#pill:first-child"));
+        $("#"+pos_id).append($("#med").children().first())
 
         my_hand.count = 0;
         // my_hand["type"] = "none";
         send_action('add_to_grid ' + color_mapping[hand_color].name + ' ' + day_mapping[pos_id.substring(0,3)] + ' ' + time_mapping[pos_id.slice(-1)]);
     }
     else {
-        send_action("add_to_grid " + color_mapping[hand_color].name + " " + day_mapping[pos_id.substring(0,3)] + " " + time_mapping[pos_id.slice(-1)]);
+        // Include previous action for backend to process (commented because backend cannot process 2 actions in sequence right now)
+        // send_action("add_to_grid " + color_mapping[hand_color].name + " " + day_mapping[pos_id.substring(0,3)] + " " + time_mapping[pos_id.slice(-1)]);
         send_action("empty hand");
     }
     
@@ -271,10 +237,10 @@ function container_click(container_id) {
         send_action("remove_from_container " + color_mapping[containerColor].name);
         send_action(color_mapping[containerColor].name + " container empty");
     } else if (hand_val == 1) {
-        var med = document.getElementById("med").firstChild;
-        var medColor = med.id.match(/[A-Za-z]+/g);
+        var med = $("#med").children().first();
+        var medColor = med.attr("id").match(/[A-Za-z]+/g);
         if (medColor == containerColor) {
-            document.getElementById(containerColor + "_container").appendChild(med);
+            $("#"+containerColor + "_container").append(med);
             my_hand.count = 0;
             color_mapping[containerColor].number += 1;
         }
@@ -325,7 +291,7 @@ function pointAt(args) {
     if (list.length == 2) {
         var day = list[0].toLowerCase().slice(0, 3);
         var time = time_mapping.indexOf(list[1]);
-        $("#"+day+time).get(0).scrollIntoView({ behavior: 'smooth' });
+        // $("#"+day+time).get(0).scrollIntoView({ behavior: 'smooth' });
         $("#"+day+time).addClass("highlight");
         
         setTimeout(function() {
@@ -334,7 +300,7 @@ function pointAt(args) {
     } else if (list.length == 1) {
         var color = medication_mapping[args];
         console.log($("#"+color+"_container").children().last().attr("id"))
-        $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
+        // $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
         $("#"+color+"_container").children().last().addClass("blink");
         setTimeout(function() {
             $("#"+color+"_container").children().last().removeClass('blink');
