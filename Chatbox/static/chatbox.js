@@ -1,19 +1,23 @@
 function message(botm) {
-    // if there's user input
+    // if there's user input, add to chatbox
     var userInput = $('#user').val();
     if (userInput) {
         addUserInput(userInput);
+
+        // Run tutorial if user ask for tutorial
+        // TODO: move tutorial check to backend
         if (userInput.includes("how to play")) {
             tutorial();
         }
+
+        // reset message box
         $("#user").parent().parent()[0].reset();
     }
 
+    // Output user action to chatbox
     // else if (botm["userInput"]) {
     //     addUserInput(botm["userInput"])
     // }
-
-    // addUserInput(botm);
 
     // create a row div
     var botRow = document.createElement("div");
@@ -27,7 +31,6 @@ function message(botm) {
     $(newBotDiv).append(botm["start"]);
 
     if (botm["action"]) {
-        // processActionList(botm["actionList"]);
         doAction(botm["action"]);
     }
 
@@ -38,7 +41,7 @@ function message(botm) {
     $(newBotDiv).append(botm["hint"]);
     $(newBotDiv).append(botm["end"]);
 
-    // add newbotDiv as child of row and add row to child of chatSpace
+    // add newbotDiv as child of row and add row to child of chatSpace (only if there is text inside)
     if ($(newBotDiv).text() != "") {
         $(botRow).append($(newBotDiv));
         $("#chatSpace").append($(botRow));
@@ -56,7 +59,6 @@ function addUserInput(userInput) {
 
     // create a newuserDiv div and set text to user input
     var newUserDiv = document.createElement("div");
-    console.log(userInput)
     $(newUserDiv).addClass("newuserDiv")
                  .html(userInput)
     // add newuserDiv as child of row, and add row as child of chatSpace
@@ -70,6 +72,7 @@ function updateScroll() {
 
 $(document).ready(function () {
 
+    // first thing to do when page fully loads: process configurations received from backend
     $.post($SCRIPT_ROOT + "/startgame", {    },
         function (data) {
             console.log("start game")
@@ -108,5 +111,4 @@ $(document).ready(function () {
         // 	event.preventDefault();
     });
 
-    $("#showImgPopup").click(showImgPopup);
 });

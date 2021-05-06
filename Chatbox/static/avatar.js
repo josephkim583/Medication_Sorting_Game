@@ -1,5 +1,6 @@
 function animateAvatar(state) {
     switch(state) {
+      // add new questioning state in which some question marks appear over avatar's head
       case "questioning":
         $("#eye1, #eye2").removeClass('eye-down eye-sleep').addClass('eye');
         $(".ball").css("animation", "bounce 2s ease-out 3");

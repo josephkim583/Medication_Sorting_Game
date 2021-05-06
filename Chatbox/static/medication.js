@@ -1,33 +1,18 @@
 var my_hand = {"count": 0, "color": "none", "name":"none"};
+
+// map medication color to medication name and vice versa
 var color_mapping = {};
 var medication_mapping = {};
-var calendar_count = {"mon1": 0, "mon2": 0, "mon3": 0, "mon4": 0, "tue1": 0, "tue2": 0, "tue3": 0, "tue4": 0,
-"wed1": 0, "wed2": 0, "wed3": 0, "wed4": 0, "thu1": 0, "thu2": 0, "thu3": 0, "thu4": 0, 
-"fri1": 0, "fri2": 0, "fri3": 0, "fri4": 0, "sat1": 0, "sat2": 0, "sat3": 0, "sat4": 0, 
-"sun1": 0, "sun2": 0, "sun3": 0, "sun4": 0};
 const time_mapping = ["none", "morning", "noon", "afternoon", "evening"];
 const day_mapping = {"mon":"Monday", "tue":"Tuesday", "wed":"Wednesday", "thu":"Thursday", "fri":"Friday",
 "sat":"Saturday", "sun":"Sunday"};
-const dayList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+// variable for tutorial part
 var tutorialPhase = false;
 var tutorialStep = 0;
 
-function tutorial() {
-    tutorialPhase = true;
-    $.post("/tutorial", {"position": tutorialStep, "response": ""}, function(data) {
-        if (data) {
-            message(data);
-            updateScroll();
-        } else {
-            message({"hint":"Congratulations! You have finished the tutorial"})
-            updateScroll();
-            tutorialPhase = false;
-            tutorialStep = 0;
-        }
-    })
-}
-
+// init game configurations
 function medInit(serverInput) {
     var events = serverInput["events"];
     var medications = serverInput["medications"];
@@ -43,6 +28,7 @@ function medInit(serverInput) {
     });
 }
 
+// generate calendar
 function generate_layout() {
     var title = document.createElement("h1");
     title.textContent = "Medication Sorting";
@@ -63,12 +49,12 @@ function generate_layout() {
         }
         $(gridContainer).append(timeDiv);
 
-        for (let j = 0; j < dayList.length; j++) {
+        for (let j = 0; j < days.length; j++) {
             var dayDiv = document.createElement("div");
             if (time_mapping[i] == "none") {
-                $(dayDiv).text(dayList[j]);
+                $(dayDiv).text(days[j]);
             } else {
-                dayDiv.id = dayList[j].toLowerCase() + i;
+                dayDiv.id = days[j].toLowerCase() + i;
                 $(dayDiv).attr("onclick", "calendar_click(this.id);");
 
             }
@@ -96,20 +82,17 @@ function generate_layout() {
     $(infoDiv).append(medDiv);
 }
 
+// put events on calendar
 function populate_events(event) {
-    var div = document.getElementById(event.day + event.time);
-    while (div.lastChild) {
-        div.removeChild(div.lastChild);
-    }
     var span = document.createElement("span");
     $(span).html(event.name);
-    $(div).append(span);
+    $("#"+event.day + event.time).append(span);
 }
 
+// create medication container
 function make_container(name, color, number) {
     medication_mapping[name] = color;
     color_mapping[color] = {"name":name, "number":number};
-    // console.log(color_mapping);
 
     var container = document.createElement("div");
     container.id = color + "_container";
@@ -118,10 +101,12 @@ function make_container(name, color, number) {
     $(container).attr("style", "border: 2px solid " + color);
     $("#med-area").append(container);
 
+    // span for medication name
     var span = document.createElement("span");
     $(container).append(span);
     $(span).html(name);
     
+    // for medication information/instruction
     var info = document.createElement("i");
     info.id = color + "_instruction";
     info.style.color = color;
@@ -130,6 +115,7 @@ function make_container(name, color, number) {
     $(info).attr("onclick", "instruction(this.id);");
     $(container).append(info);
 
+    // generate pills
     for (var i = 0; i < number; i++) {
         var med = document.createElement("div");
         med.id = "" + color + (i+1);
@@ -140,13 +126,25 @@ function make_container(name, color, number) {
     }
 }
 
-function receive_action() {
-    fetch("/message")
-    .then(response => response.json())
-    .then(actionList => actionList.forEach(doAction))
+// process tutorial actions from backend
+function tutorial() {
+    tutorialPhase = true;
+    $.post("/tutorial", {"position": tutorialStep, "response": ""}, function(data) {
+        if (data) {
+            message(data);
+            updateScroll();
+        } else {
+            message({"hint":"Congratulations! You have finished the tutorial"})
+            updateScroll();
+            tutorialPhase = false;
+            tutorialStep = 0;
+        }
+    })
 }
 
+// send action to backend and process data sent back from backend
 function send_action(action) {
+    // send action if user is doing tutorial
     if (tutorialPhase) {
         $.post("/tutorial", {
             "position": tutorialStep,
@@ -160,6 +158,7 @@ function send_action(action) {
             }
             updateScroll();
         })
+    // send normal action
     } else {
         $.post("/message", {
             "botm": '(' + action + ')'
@@ -172,18 +171,16 @@ function send_action(action) {
     }
 }
 
+// triggers when click on a position in calendar
 function calendar_click(pos_id) {
     var hand_val = my_hand.count;
     var hand_color = my_hand.color;
 
     if (hand_val == 1) {
-        // var id = clicked_id + calendar_count[clicked_id ]
-        calendar_count[pos_id] += 1;
-
+        // move pill from hand to position in calendar
         $("#"+pos_id).append($("#med").children().first())
 
         my_hand.count = 0;
-        // my_hand["type"] = "none";
         send_action('add_to_grid ' + color_mapping[hand_color].name + ' ' + day_mapping[pos_id.substring(0,3)] + ' ' + time_mapping[pos_id.slice(-1)]);
     }
     else {
@@ -194,18 +191,21 @@ function calendar_click(pos_id) {
     
 }
 
+// triggers when click on information button in container
 function instruction(instruction_id){
     var color = instruction_id.split("_")[0];
     send_action("request-instructions " + color_mapping[color].name);
 }
 
+// triggers when click on a pill/medication
 function med_click(med_id) {
     var hand_val = my_hand.count;
     var color = med_id.match(/[A-Za-z]+/g);
     var med = $("#"+med_id);
-    console.log(med_id);
+    console.log("clicked: " + med_id);
 
     if (hand_val == 1) {
+        // includes action user trying to do
         if (med.parent().parent().attr("id") == "med-area") {
             send_action("remove_from_container " + color_mapping[color].name);
         } else if (med.parent().parent().attr("id") == "grid-container") {
@@ -215,21 +215,25 @@ function med_click(med_id) {
         send_action("hand is full");
     }
     else {
+        // pill is inside container
         if (med.parent().parent().attr("id") == "med-area") {
             color_mapping[color].number -= 1;
             send_action("remove_from_container " + color_mapping[color].name);
         }
+        // pill is inside calendar
         else if (med.parent().parent().attr("id") == "grid-container") {
             var calId = med.parent().attr("id");
-            calendar_count[calId] -= 1;
             send_action("remove_from_grid " + color_mapping[color].name + " " + day_mapping[calId.substring(0,3)] + " " + time_mapping[calId.slice(-1)]);
         }
+        
+        // move pill to hand
         med.appendTo("#med");
         my_hand.count = 1;
         my_hand.color = color;
     }
 }
 
+// trigger when click inside a container
 function container_click(container_id) {
     var hand_val = my_hand.count;
     var containerColor = container_id.split("_")[0];
@@ -240,6 +244,7 @@ function container_click(container_id) {
         var med = $("#med").children().first();
         var medColor = med.attr("id").match(/[A-Za-z]+/g);
         if (medColor == containerColor) {
+            // move pill from hand to container
             $("#"+containerColor + "_container").append(med);
             my_hand.count = 0;
             color_mapping[containerColor].number += 1;
@@ -247,6 +252,7 @@ function container_click(container_id) {
     }
 }
 
+// execute action from backend
 function doAction(action) {
     if (action.name == "pointAt") {
         pointAt(action.args);
@@ -255,12 +261,11 @@ function doAction(action) {
     }
 }
 
+// show image as popup
 function showImgPopup(imgSrc) {
-    console.log("show popup");
     var imgPopup = document.createElement("div");
     imgPopup.id = "popup";
     
-
     var overlay = document.createElement("div");
     overlay.id = "overlay";
     $(overlay).append(imgPopup);
@@ -286,6 +291,8 @@ function showImgPopup(imgSrc) {
     });
 }
 
+// point at an object in interface
+// TODO: maybe keep pointing until there is response from user
 function pointAt(args) {
     var list = args.split(' ');
     if (list.length == 2) {
@@ -299,7 +306,7 @@ function pointAt(args) {
         }, 5000);
     } else if (list.length == 1) {
         var color = medication_mapping[args];
-        console.log($("#"+color+"_container").children().last().attr("id"))
+        console.log("point at " + $("#"+color+"_container").children().last().attr("id"))
         // $("#"+color+"_container").get(0).scrollIntoView({ behavior: 'smooth' });
         $("#"+color+"_container").children().last().addClass("blink");
         setTimeout(function() {
