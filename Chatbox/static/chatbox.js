@@ -9,9 +9,9 @@ function message(botm) {
         $("#user").parent().parent()[0].reset();
     }
 
-    else if (botm["userInput"]) {
-        addUserInput(botm["userInput"])
-    }
+    // else if (botm["userInput"]) {
+    //     addUserInput(botm["userInput"])
+    // }
 
     // addUserInput(botm);
 

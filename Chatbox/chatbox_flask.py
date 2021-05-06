@@ -66,7 +66,7 @@ def message():
             start = "hello"
         elif "bye" in message or "goodbye" in message:
             state = "sleeping"
-            start = "goodbye!"
+            start = "see ya later!"
         elif "thank you" in message:
             start = "you are welcome!"
         elif "no" in message and session.get("toUser")[-1]["state"] == "questioning":   # may include problem/question type?
@@ -92,14 +92,14 @@ def message():
                 hint = "ibuprofen should not be used in the morning"
                 action = {"name":"pointAt", "args": messageList[2] + " " + messageList[-1]}
             else:
-            # check if there are no position with more than 2 pills of any type
+                # check if there are no position with more than 2 pills of any type
                 overdose = numCheck()
                 if overdose != None:
                     day = day_mapping[overdose[1][:3]]
                     time = time_mapping[int(overdose[1][-1])]
                     hint = "too many " + overdose[0] + " on " + day + " " + time
                     action = {"name":"pointAt", "args":day + " " + time}
-                # demo part
+                # check for interaction conflict is there is any
                 else:
                     incompatible = interactionCheck()
                     if incompatible != None:
