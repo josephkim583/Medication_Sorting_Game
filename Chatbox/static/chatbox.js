@@ -38,6 +38,8 @@ function message(botm) {
     //   $(newBotDiv).append(botm["state"] + "\n");
         animateAvatar(botm["state"]);
     }
+    // if the agent has messages to the user, add to the chatSpace
+    // represent sayText action
     $(newBotDiv).append(botm["hint"]);
     $(newBotDiv).append(botm["end"]);
 
