@@ -21,3 +21,6 @@ Web UI and backend for medication sorting game
 - Point at an object inside UI (could improve noticeability in the future)
 - Show user an image as a popup
 - Warn the user if there is any problems through a combination of actions and messages (currently the problem-checking is hardcoded, includes checking for interaction conflict, overdosage, and incorrect time of dosage)
+
+### To run the UI
+Go to Chatbox folder and run this command in command line ``` python3 chatbox_flask.py ```
