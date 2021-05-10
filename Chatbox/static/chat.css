@@ -1,0 +1,83 @@
+#title {
+    font-size: 25px;
+    padding: 10px;
+    background-color: #4E2A84;
+    color: white;
+    border-radius: 20px 20px 0 0;
+  }
+  
+  #topSpace {
+    border: 2px solid gray;
+    border-width: 0 2px;
+    height: 650px;
+  }
+  
+  #userContainer {
+    min-height: 60px;
+    border: 1px solid gray;
+    border-width: 1px 2px;
+    padding: 1% 5%;
+  }
+  
+  .newuserDiv {
+    border-radius: 15px 15px 2px 15px;
+    border: 2px solid skyblue;
+    padding: 5px 10px;
+    float: right;
+    max-width: 70%;
+    margin: 5px 15px 5px auto;
+    background-color: white;
+  }
+  
+  .newbotDiv {
+    border-radius: 15px 15px 15px 2px;
+    border: 2px solid lightgrey;
+    padding: 5px 10px;
+    float: left;
+    max-width: 70%;
+    margin: 5px auto 5px 15px;
+    white-space: pre-line;
+    background-color: white;
+  }
+  
+  #chatSpace {
+    overflow-y: scroll;
+    padding: 15px;
+    background-color: #ece9f3;
+    max-height: 100%;
+    font-size: x-large;
+  }
+
+  #user, #user::-webkit-input-placeholder {
+    font-size: x-large;
+  }
+
+  #submitBtn {
+    font-size: x-large;
+  }
+  
+  #debug {
+    padding: 15px;
+  }
+  
+  /* TODO put this in an init.css and use bootstrap */ 
+  .toggleDebug {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #999;
+    border-bottom: none;
+    padding: 0px;
+    margin: 5px;
+  }
+  
+  /* TODO put this in an init.css and use bootstrap */
+  .debugOn {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #999;
+    border-top: none;
+  }
