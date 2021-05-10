@@ -25,3 +25,4 @@ Web UI and backend for medication sorting game
 ### How to run
 1. Download Flask and flask_session using pip ``` pip install Flask flask_session``` or pip3 ``` pip3 install Flask flask_session```
 2. Go to Chatbox folder and run this command in command line ``` python3 chatbox_flask.py ```
+3. Go to http://127.0.0.1:5000/ on your favorite browser to see the UI working
